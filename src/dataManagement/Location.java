@@ -29,4 +29,79 @@ public class Location {
 		this.longitude = longitude;
 		
 	} //end constructor
+	
+	public Location()
+	{
+		addressNum = 0;
+	}
+	
+	public void printInfo()
+	{
+		System.out.println("country: " + country);
+		System.out.println("city: " + city);
+		System.out.println("street: "  + street);
+		System.out.println("addressNum: "  + addressNum);
+		System.out.println("latitude: "  + latitude);
+		System.out.println("longitude: " + longitude);
+	}
+	
+	public void setCountry(String country)
+	{
+		this.country = country;
+	}
+	
+	public void setCity(String city)
+	{
+		this.city = city;
+	}
+	
+	public void setStreet(String street)
+	{
+		this.street = street;
+	}
+	
+	public void setAddressNum(int addressNum)
+	{
+		this.addressNum = addressNum;
+	}
+	
+	public void setLatitude(double latitude)
+	{
+		this.latitude = latitude;
+	}
+	
+	public void setLongitude(double longitude)
+	{
+		this.longitude = longitude;
+	}
+	
+	public String getCountry()
+	{
+		return country;
+	}
+	
+	public String getCity()
+	{
+		return city;
+	}
+	
+	public String getStreet()
+	{
+		return street;
+	}
+	
+	public int getAddressNum()
+	{
+		return addressNum;
+	}
+	
+	public double getlatitude()
+	{
+		return latitude;
+	}
+	
+	public double getLongitude()
+	{
+		return longitude;
+	}
 } //end class

@@ -14,7 +14,7 @@ import java.util.ArrayList;
  * @author Daniel
  *A wrapper class for basic file IO. 
  *Each instance is matched to one file.
- *Opening and closing the BUfferedReader are built in to getLines()
+ *Opening and closing the BufferedReader are built in to getLines()
  * *Will probably be made more advanced later.
  */
 public class FileIO {

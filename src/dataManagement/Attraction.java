@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 public class Attraction {
 
-	private Location location;
+	public Location location;
 	private String name;
 	private ArrayList<String> tags;
 	
@@ -21,5 +21,54 @@ public class Attraction {
 		this.name = name;
 		this.tags = tags;
 		
-	} //end constructor
+	}
+	
+	public Attraction()
+	{
+		tags = new ArrayList<String>();
+		location = new Location();
+	}
+	
+	//instead should override that method that lets you print the object directly
+	public void printInfo()
+	{
+		System.out.println("name: " + name);
+		System.out.println("Location information:");
+		location.printInfo();
+		System.out.println("tags:");
+		for (String tag: tags)
+		{
+			System.out.println(tag);
+		}
+	}
+	
+	public void setName(String name)
+	{
+		this.name = name;
+	}
+	
+	public void setLocation(Location location)
+	{
+		this.location = location;
+	}
+	
+	public void addTag(String tag)
+	{
+		tags.add(tag);
+	}
+	
+	public Location getLocation()
+	{
+		return location;
+	}
+	
+	public String getName()
+	{
+		return name;
+	}
+	
+	public ArrayList<String> getTags()
+	{
+		return tags;
+	}
 } //end class
