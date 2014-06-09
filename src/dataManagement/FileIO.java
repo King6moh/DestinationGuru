@@ -27,6 +27,8 @@ public class FileIO {
 	private File file;
 	private BufferedReader reader;
 	
+	private ErrorLog errorLog;
+	
 	private BufferedOutputStream bufOutStream;
 	private FileOutputStream fileOutStream;
 	
@@ -40,6 +42,7 @@ public class FileIO {
 		this.fileName = fileName;
 		file = new File(fileName);
 		//reader = getBufferedReader();
+		errorLog = new ErrorLog();
 	}
 	
 	
@@ -52,7 +55,8 @@ public class FileIO {
 		try {
 			reader = new BufferedReader(new FileReader(file));
 		} catch (FileNotFoundException e) {
-			System.out.println("Error creating fileReader " + e);
+			//System.out.println("Error creating fileReader " + e);
+			errorLog.getErrorLog().info("Error creating fileReader " + e);
 		}
 	}
 	
@@ -64,7 +68,8 @@ public class FileIO {
 		try {
 			reader.close();
 		} catch (IOException e) {
-			System.out.println("Error closing BufferedReader" + e);
+			//System.out.println("Error closing BufferedReader " + e);
+			errorLog.getErrorLog().info("Error closing BufferedReader " + e);
 		}
 	}
 	/**
@@ -83,7 +88,8 @@ public class FileIO {
 				lineArray.add(line);
 			}
 		}catch (IOException e) {
-			System.out.println("Error reading from file " + e);
+			//System.out.println("Error reading from file " + e);
+			errorLog.getErrorLog().info("Error reading from file " + e);
 		}
 		closeBufferedReader();
 		return lineArray;
@@ -95,7 +101,8 @@ public class FileIO {
 			fileOutStream = new FileOutputStream(fileName);
 			bufOutStream = new BufferedOutputStream(fileOutStream);
 		}catch (FileNotFoundException fnfe) {
-			System.out.println("File not found" + fnfe);
+			//System.out.println("File not found" + fnfe);
+			errorLog.getErrorLog().info("File not found " + fnfe);
 		}
 	}
 	
@@ -107,7 +114,8 @@ public class FileIO {
 				bufOutStream.close();
 			}
 		}catch (Exception e) {
-			System.out.println("Error while closing streams" + e);
+			//System.out.println("Error while closing streams" + e);
+			errorLog.getErrorLog().info("Error while closing streams " + e);
 		}
 	}
 	
@@ -122,8 +130,8 @@ public class FileIO {
 		try {
 			bufOutStream.write(byteArray);
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			System.out.println("Error writing to file " + fileName + " " + e);
+			//System.out.println("Error writing to file " + fileName + " " + e);
+			errorLog.getErrorLog().info("Error writing to file " + fileName + " " + e);
 		}
 		closeOutputStream();
 	}

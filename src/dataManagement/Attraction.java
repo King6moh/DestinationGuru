@@ -23,10 +23,18 @@ public class Attraction {
 		
 	}
 	
+	public Attraction(String name)
+	{
+		tags = new ArrayList<String>();
+		location = new Location();
+		this.name = name; 
+	}
+	
 	public Attraction()
 	{
 		tags = new ArrayList<String>();
 		location = new Location();
+		name = null; 
 	}
 	
 	//instead should override that method that lets you print the object directly
