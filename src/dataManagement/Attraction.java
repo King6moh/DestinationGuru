@@ -46,7 +46,7 @@ public class Attraction {
 		System.out.println("tags:");
 		for (String tag: tags)
 		{
-			System.out.println(tag);
+			System.out.println("\t" + tag);
 		}
 	}
 	

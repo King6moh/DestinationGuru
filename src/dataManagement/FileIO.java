@@ -9,6 +9,8 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
 
+import ErrorLog.ErrorLog;
+
 /**
  * 
  * @author Daniel
@@ -17,7 +19,7 @@ import java.util.ArrayList;
  *Opening and closing the BufferedReader are built in to getLines()
  * *Will probably be made more advanced later.
  */
-public class FileIO {
+public class FileIO extends ErrorLog {
 
 	/*note: using a BufferedReader and a BufferedOutputStream is kind of weird because they don't match,
 	 * but Reader is good for reading in lines at a time, which I think we want.
@@ -39,10 +41,11 @@ public class FileIO {
 	 */
 	public FileIO(String fileName)
 	{
+		super();
 		this.fileName = fileName;
 		file = new File(fileName);
 		//reader = getBufferedReader();
-		errorLog = new ErrorLog();
+		//errorLog = new ErrorLog();
 	}
 	
 	
@@ -56,7 +59,8 @@ public class FileIO {
 			reader = new BufferedReader(new FileReader(file));
 		} catch (FileNotFoundException e) {
 			//System.out.println("Error creating fileReader " + e);
-			errorLog.getErrorLog().info("Error creating fileReader " + e);
+			//errorLog.getErrorLog().info("Error creating fileReader " + e);
+			logger.info("Error creating fileReader " + e);
 		}
 	}
 	
@@ -69,7 +73,8 @@ public class FileIO {
 			reader.close();
 		} catch (IOException e) {
 			//System.out.println("Error closing BufferedReader " + e);
-			errorLog.getErrorLog().info("Error closing BufferedReader " + e);
+			//errorLog.getErrorLog().info("Error closing BufferedReader " + e);
+			logger.info("Error closing BufferedReader " + e);
 		}
 	}
 	/**
@@ -89,7 +94,8 @@ public class FileIO {
 			}
 		}catch (IOException e) {
 			//System.out.println("Error reading from file " + e);
-			errorLog.getErrorLog().info("Error reading from file " + e);
+			//errorLog.getErrorLog().info("Error reading from file " + e);
+			logger.info("Error reading from file " + e);
 		}
 		closeBufferedReader();
 		return lineArray;
@@ -102,7 +108,8 @@ public class FileIO {
 			bufOutStream = new BufferedOutputStream(fileOutStream);
 		}catch (FileNotFoundException fnfe) {
 			//System.out.println("File not found" + fnfe);
-			errorLog.getErrorLog().info("File not found " + fnfe);
+			//errorLog.getErrorLog().info("File not found " + fnfe);
+			logger.info("File not found " + fnfe);
 		}
 	}
 	
@@ -115,7 +122,8 @@ public class FileIO {
 			}
 		}catch (Exception e) {
 			//System.out.println("Error while closing streams" + e);
-			errorLog.getErrorLog().info("Error while closing streams " + e);
+			//errorLog.getErrorLog().info("Error while closing streams " + e);
+			logger.info("Error while closing streams " + e);
 		}
 	}
 	
@@ -131,7 +139,8 @@ public class FileIO {
 			bufOutStream.write(byteArray);
 		} catch (IOException e) {
 			//System.out.println("Error writing to file " + fileName + " " + e);
-			errorLog.getErrorLog().info("Error writing to file " + fileName + " " + e);
+			//errorLog.getErrorLog().info("Error writing to file " + fileName + " " + e);
+			logger.info("Error writing to file " + fileName + " " + e);
 		}
 		closeOutputStream();
 	}

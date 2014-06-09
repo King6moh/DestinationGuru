@@ -1,7 +1,9 @@
 package dataManagement;
+
 import java.util.ArrayList;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import ErrorLog.ErrorLog;;
 
 
 /**
@@ -12,13 +14,14 @@ import java.util.regex.Pattern;
  *It parses the file and creates an ArrayList of the attractions whose information is in the file
  *It puts all the information from the file into the appropriate fields of the Attraction and Location classes
  */
-public class FileData {
+public class FileData extends ErrorLog {
 
 	private FileIO file;
 	private ArrayList<Attraction> attractionList;
 	
 	public FileData()
 	{
+		super();
 		file = new FileIO("attractionData.txt");
 		attractionList = new ArrayList<Attraction>();
 	}
@@ -76,10 +79,12 @@ public class FileData {
 					attraction.addTag(matcher.group(2));
 				}else {
 					//replace this with a write to the error log once we have an error log
-					System.out.println("Unrecognized identifier: " + matcher.group(1));
+					//System.out.println("Unrecognized identifier: " + matcher.group(1));
+					logger.info("Unrecognized identifier: " + matcher.group(1));
 				}
 			}else {
 				System.out.println("line did not match: " + line);
+				logger.info("line did not match: " + line);
 			}
 		}
 		for (Attraction att: attractionList)
