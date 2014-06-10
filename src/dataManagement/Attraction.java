@@ -7,6 +7,7 @@ public class Attraction {
 	public Location location;
 	private String name;
 	private ArrayList<String> tags;
+	private int matchedTags;
 	
 	/***
 	 * Attraction constructor
@@ -20,6 +21,7 @@ public class Attraction {
 		this.location = location;
 		this.name = name;
 		this.tags = tags;
+		matchedTags = 0;
 		
 	}
 	
@@ -28,6 +30,7 @@ public class Attraction {
 		tags = new ArrayList<String>();
 		location = new Location();
 		this.name = name; 
+		matchedTags = 0;
 	}
 	
 	public Attraction()
@@ -35,6 +38,7 @@ public class Attraction {
 		tags = new ArrayList<String>();
 		location = new Location();
 		name = null; 
+		matchedTags = 0;
 	}
 	
 	//instead should override that method that lets you print the object directly
@@ -48,6 +52,15 @@ public class Attraction {
 		{
 			System.out.println("\t" + tag);
 		}
+		System.out.println("Matched tags: " + matchedTags); // FOR DEBUGGING
+	}
+	
+	public int incMatchedTags(){
+		return ++matchedTags;
+	}
+	
+	public void clearMatchedTags(){
+		matchedTags = 0;
 	}
 	
 	public void setName(String name)

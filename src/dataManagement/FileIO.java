@@ -29,7 +29,7 @@ public class FileIO extends ErrorLog {
 	private File file;
 	private BufferedReader reader;
 	
-	private ErrorLog errorLog;
+	//private ErrorLog errorLog;
 	
 	private BufferedOutputStream bufOutStream;
 	private FileOutputStream fileOutStream;

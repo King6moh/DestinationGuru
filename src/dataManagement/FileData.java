@@ -1,6 +1,7 @@
 package dataManagement;
 
 import java.util.ArrayList;
+import java.util.Hashtable;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import ErrorLog.ErrorLog;;
@@ -17,13 +18,15 @@ import ErrorLog.ErrorLog;;
 public class FileData extends ErrorLog {
 
 	private FileIO file;
-	private ArrayList<Attraction> attractionList;
+	private ArrayList<Attraction> attractionList;	
+	private Hashtable<String, ArrayList<Attraction>> tagTable;
 	
 	public FileData()
 	{
 		super();
 		file = new FileIO("attractionData.txt");
 		attractionList = new ArrayList<Attraction>();
+		tagTable = new Hashtable<String, ArrayList<Attraction>>();
 	}
 	
 	/**
@@ -77,6 +80,30 @@ public class FileData extends ErrorLog {
 				}else if (matcher.group(1).equals("tag"))
 				{
 					attraction.addTag(matcher.group(2));
+					
+					/*
+					 * Ideally, hashtable should look roughly like this when finished reading in data
+					 * |	TAG		|	Attractions				|
+					 * | museum		|museum of civ., war museum |
+					 * | beach		| mooneys bay, sandbanks	|
+					 * |historic	| museum of civ				|
+					 * 
+					 * where each attraction now has a matchedTag field.
+					 * 
+					 * To check for a certain number of matches, we can simply check the value
+					 * of this field once we update it, hence the incMatchedTags() method in Attraction, 
+					 * which will return this value once it finishes, letting us immediately check if
+					 * the attraction has met the quota for matched tags (and ensuring we don't have to
+					 * iterate through the whole list of Attractions to determine which ones have matched
+					 * enough tags.
+					 */
+					
+					ArrayList<Attraction> tempList = tagTable.get(matcher.group(2));
+					if(tempList == null){tempList = new ArrayList<Attraction>();}
+					if(!tempList.contains(attraction)){
+						tempList.add(attraction);
+						tagTable.put(matcher.group(2), tempList);
+					} else {/* Do nothing */}
 				}else {
 					//replace this with a write to the error log once we have an error log
 					//System.out.println("Unrecognized identifier: " + matcher.group(1));
