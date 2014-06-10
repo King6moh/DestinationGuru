@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Hashtable;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+
 import ErrorLog.ErrorLog;;
 
 
@@ -125,6 +126,11 @@ public class FileData extends ErrorLog {
 	public ArrayList<Attraction> getAttractionList()
 	{
 		return attractionList;
+	}
+	
+	public Hashtable<String, ArrayList<Attraction>> getAttractionHash()
+	{
+		return tagTable;
 	}
 	
 	//for testing
