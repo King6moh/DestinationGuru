@@ -1,5 +1,5 @@
 /**
- * 
+ * The following is part of the dataManagement subsystem
  */
 package dataManagement;
 
@@ -8,7 +8,12 @@ import java.util.Hashtable;
 import org.junit.Test;
 
 /**
- * @author Moh
+ * @author Mohammed Ahmed-Muhsin
+ * @version 1.0 
+ * @date 2014-06-10
+ * 
+ * The following class will test the functionality of the DataControl class
+ * In specific, we are testing that the class initializes properly and that we get the list of the attractions
  *
  */
 public class DataControlTest {
@@ -31,7 +36,7 @@ public class DataControlTest {
 	@Test
 	public void testGetList() {
 		DataControl testDataControl = new DataControl();
-		assertTrue(testDataControl.getList() instanceof Hashtable<?,?>);		
+		assertTrue("Checking that we return a Hashtable", testDataControl.getList() instanceof Hashtable<?,?>);		
 	}
 
 	/**

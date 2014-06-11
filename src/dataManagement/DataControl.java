@@ -14,7 +14,6 @@ public class DataControl {
 	
 	public Hashtable<String, ArrayList<Attraction>> getList()
 	{
-		fileData.getFileData();
 		return fileData.getAttractionHash();
 	}
 	

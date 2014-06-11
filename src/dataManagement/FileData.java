@@ -125,11 +125,13 @@ public class FileData extends ErrorLog {
 	
 	public ArrayList<Attraction> getAttractionList()
 	{
+		getFileData();
 		return attractionList;
 	}
 	
 	public Hashtable<String, ArrayList<Attraction>> getAttractionHash()
 	{
+		getFileData();
 		return tagTable;
 	}
 	
