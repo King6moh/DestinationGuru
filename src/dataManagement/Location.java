@@ -95,7 +95,7 @@ public class Location {
 		return addressNum;
 	}
 	
-	public double getlatitude()
+	public double getLatitude()
 	{
 		return latitude;
 	}
