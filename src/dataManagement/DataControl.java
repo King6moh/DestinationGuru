@@ -5,26 +5,33 @@ import java.util.Hashtable;
 
 public class DataControl {
 
-	FileData fileData;
+	FileAttractionData fileAttractionData;
+	FileAlgorithmData fileAlgorithmData;
 	
 	public DataControl()
 	{
-		fileData = new FileData();
+		fileAttractionData = new FileAttractionData();
+		fileAlgorithmData = new FileAlgorithmData();
 	}
 	
 	public Hashtable<String, ArrayList<Attraction>> getList()
 	{
-		return fileData.getAttractionHash();
+		return fileAttractionData.getAttractionHash();
 	}
 	
-	public void updateList()
+	public void updateList(Attraction attraction)
 	{
-		//not implemented yet
+		fileAttractionData.updateAttractionList(attraction);
 	}
 	
-	public void updateAlgorithm()
+	public int getAlgorithm()
 	{
-		//not implemented yet
+		return fileAlgorithmData.getSensitivity();
+	}
+	
+	public void updateAlgorithm(int sensitivity)
+	{
+		fileAlgorithmData.updateAlgorithm(sensitivity);
 	}
 	
 }

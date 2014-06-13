@@ -73,6 +73,11 @@ public class Attraction {
 		this.location = location;
 	}
 	
+	public void setTags(ArrayList<String> tags)
+	{
+		this.tags = tags;
+	}
+	
 	public void addTag(String tag)
 	{
 		tags.add(tag);

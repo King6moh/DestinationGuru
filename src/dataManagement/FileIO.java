@@ -1,11 +1,11 @@
 package dataManagement;
 
-import java.io.BufferedOutputStream;
 import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
 import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 
@@ -17,22 +17,13 @@ import ErrorLog.ErrorLog;
  *A wrapper class for basic file IO. 
  *Each instance is matched to one file.
  *Opening and closing the BufferedReader are built in to getLines()
- * *Will probably be made more advanced later.
+ * Opening and closing the BufferedWriter is built in to write
  */
 public class FileIO extends ErrorLog {
 
-	/*note: using a BufferedReader and a BufferedOutputStream is kind of weird because they don't match,
-	 * but Reader is good for reading in lines at a time, which I think we want.
-	 * If we don't, looking into a BufferedInputStream and other output stuff might be necessary.
-	 */
-	private String fileName;
 	private File file;
 	private BufferedReader reader;
-	
-	//private ErrorLog errorLog;
-	
-	private BufferedOutputStream bufOutStream;
-	private FileOutputStream fileOutStream;
+	private BufferedWriter writer;
 	
 	/**
 	 * 
@@ -42,10 +33,7 @@ public class FileIO extends ErrorLog {
 	public FileIO(String fileName)
 	{
 		super();
-		this.fileName = fileName;
 		file = new File(fileName);
-		//reader = getBufferedReader();
-		//errorLog = new ErrorLog();
 	}
 	
 	
@@ -53,13 +41,11 @@ public class FileIO extends ErrorLog {
 	 * 
 	 * get a BufferedReader for the File file.
 	 */
-	public void getBufferedReader()
+	private void getBufferedReader()
 	{
 		try {
 			reader = new BufferedReader(new FileReader(file));
 		} catch (FileNotFoundException e) {
-			//System.out.println("Error creating fileReader " + e);
-			//errorLog.getErrorLog().info("Error creating fileReader " + e);
 			logger.info("Error creating fileReader " + e);
 		}
 	}
@@ -67,13 +53,11 @@ public class FileIO extends ErrorLog {
 	/**
 	 * Closes the BufferedReader
 	 */
-	public void closeBufferedReader()
+	private void closeBufferedReader()
 	{
 		try {
 			reader.close();
 		} catch (IOException e) {
-			//System.out.println("Error closing BufferedReader " + e);
-			//errorLog.getErrorLog().info("Error closing BufferedReader " + e);
 			logger.info("Error closing BufferedReader " + e);
 		}
 	}
@@ -93,56 +77,50 @@ public class FileIO extends ErrorLog {
 				lineArray.add(line);
 			}
 		}catch (IOException e) {
-			//System.out.println("Error reading from file " + e);
-			//errorLog.getErrorLog().info("Error reading from file " + e);
 			logger.info("Error reading from file " + e);
 		}
 		closeBufferedReader();
 		return lineArray;
 	}
 	
-	public void getOutputStream()
+	
+	private void getBufferedWriter()
 	{
-		try{
-			fileOutStream = new FileOutputStream(fileName);
-			bufOutStream = new BufferedOutputStream(fileOutStream);
-		}catch (FileNotFoundException fnfe) {
-			//System.out.println("File not found" + fnfe);
-			//errorLog.getErrorLog().info("File not found " + fnfe);
-			logger.info("File not found " + fnfe);
+		try {
+			writer = new BufferedWriter(new FileWriter(file));
+		} catch (IOException e) {
+			logger.info("Error creating BufferedWriter "  +e);
 		}
 	}
 	
-	public void closeOutputStream()
+	private void closeBufferedWriter()
 	{
-		try{
-			if (bufOutStream != null) {
-				bufOutStream.flush();
-				bufOutStream.close();
-			}
-		}catch (Exception e) {
-			//System.out.println("Error while closing streams" + e);
-			//errorLog.getErrorLog().info("Error while closing streams " + e);
-			logger.info("Error while closing streams " + e);
+		try {
+			writer.close();
+		} catch (IOException e) {
+			logger.info("Error closing BufferedWriter " + e);
 		}
 	}
 	
 	/**
 	 * 
-	 * @param byteArray What will be written to the file
-	 * opens and closes the output streams
+	 * @param lines An ArrayList where each element is printed on its own line
 	 */
-	public void write(byte[] byteArray)
+	public void write(ArrayList<String> lines)
 	{
-		getOutputStream();
+		getBufferedWriter();
 		try {
-			bufOutStream.write(byteArray);
+			for (String line: lines)
+			{
+				writer.write(line);
+				writer.newLine();
+			}
+			
 		} catch (IOException e) {
-			//System.out.println("Error writing to file " + fileName + " " + e);
-			//errorLog.getErrorLog().info("Error writing to file " + fileName + " " + e);
-			logger.info("Error writing to file " + fileName + " " + e);
+			logger.info("Error writing to file" + e);
 		}
-		closeOutputStream();
+		closeBufferedWriter();
+		
 	}
 	
 	public static void main(String[] args) {
@@ -159,9 +137,13 @@ public class FileIO extends ErrorLog {
 		
 		//test the writing capabilities
 		/*
-		byte[] testArray = ("The" + "\n" + "Output" + "\n" + "Test" + "\n" + "Is" + "\n" + "Working").getBytes();
 		FileIO testIO = new FileIO("TestWrite.txt");
-		testIO.write(testArray);
+		ArrayList<String> lines = new ArrayList<String>();
+		lines.add("this");
+		lines.add("test");
+		lines.add("is");
+		lines.add("working");
+		testIO.write(lines);
 		*/
 	}
 

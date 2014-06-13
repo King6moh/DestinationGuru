@@ -11,21 +11,21 @@ import ErrorLog.ErrorLog;;
 /**
  * 
  * @author Daniel
- *This class uses a FileIO class to read all the data from a text file called attractionData.txt
+ *This class uses a FileIO object to read all the data from a text file called attractionData.txt
  *The data has a specific format.
  *It parses the file and creates an ArrayList of the attractions whose information is in the file
  *It puts all the information from the file into the appropriate fields of the Attraction and Location classes
  */
-public class FileData extends ErrorLog {
+public class FileAttractionData extends ErrorLog {
 
 	private FileIO file;
 	private ArrayList<Attraction> attractionList;	
 	private Hashtable<String, ArrayList<Attraction>> tagTable;
 	
-	public FileData()
+	public FileAttractionData()
 	{
 		super();
-		file = new FileIO("attractionData.txt");
+		file = new FileIO("attractionData.dg");
 		attractionList = new ArrayList<Attraction>();
 		tagTable = new Hashtable<String, ArrayList<Attraction>>();
 	}
@@ -38,7 +38,7 @@ public class FileData extends ErrorLog {
 	 * A line looks like <name><Eiffel Tower> or <tag><museum>.
 	 * The first <> must be a word, but the second <> can be any combination of letters, spaces, numbers, or periods.
 	 */
-	public void getFileData()
+	private void getFileData()
 	{
 		Attraction attraction = null;
 		ArrayList<String> fileList = null;
@@ -104,23 +104,84 @@ public class FileData extends ErrorLog {
 					if(!tempList.contains(attraction)){
 						tempList.add(attraction);
 						tagTable.put(matcher.group(2), tempList);
-					} else {/* Do nothing */}
+					}
 				}else {
-					//replace this with a write to the error log once we have an error log
-					//System.out.println("Unrecognized identifier: " + matcher.group(1));
 					logger.info("Unrecognized identifier: " + matcher.group(1));
 				}
 			}else {
-				System.out.println("line did not match: " + line);
-				logger.info("line did not match: " + line);
+				if (!line.equals(""))
+				{
+					System.out.println("line did not match: " + line);
+					logger.info("line did not match: " + line);
+				}	
 			}
 		}
+		
+	}
+	
+	//
+	/**
+	 * updates one attraction at a time. I believe this is what we want.
+	 * @param attraction The attraction to be added to the file
+	 */
+	public void updateAttractionList(Attraction attraction)
+	{
+		Attraction changed = null;
+		for (Attraction a: attractionList)
+		{
+			if (a.getName().equals(attraction.getName()))
+			{
+				changed = a;
+				break;
+			}
+		}
+		if (changed == null) //new attraction
+		{
+			attractionList.add(attraction);
+		}else { //update attraction
+			changed.setName(attraction.getName());
+			changed.setLocation(attraction.getLocation());
+			changed.setTags(attraction.getTags());
+		}
+		
+		writeAttractionList();
+	}
+	
+	/**
+	 * writes the attractionList to file in the appropriate format
+	 */
+	private void writeAttractionList()
+	{
+		ArrayList<String> update = new ArrayList<String>();
+		for (Attraction a: attractionList)
+		{
+			update.add("<name><" + a.getName() + ">");
+			Location l = null;
+			l = a.getLocation();
+			update.add("<country><"  +l.getCountry() + ">");
+			update.add("<city><"  +l.getCity() + ">");
+			update.add("<street><"  +l.getStreet() + ">");
+			update.add("<addressNumber><"  +String.valueOf(l.getAddressNum()) + ">");
+			update.add("<latitude><"  +l.getLatitude() + ">");
+			update.add("<longitude><"  +l.getLongitude() + ">");
+			for (String tag: a.getTags())
+			{
+				update.add("<tag><" + tag + ">");
+			}
+			update.add("");
+			
+		}
+		
+		file.write(update);
+	}
+	
+	public void printAllAttractions()
+	{
 		for (Attraction att: attractionList)
 		{
 			att.printInfo();
 			System.out.println("");
 		}
-		
 	}
 	
 	public ArrayList<Attraction> getAttractionList()
@@ -137,8 +198,17 @@ public class FileData extends ErrorLog {
 	
 	//for testing
 	public static void main(String[] args) {
-		FileData fileData = new FileData();
-		fileData.getFileData();
+		FileAttractionData attractionData = new FileAttractionData();
+		attractionData.getFileData();
+		attractionData.printAllAttractions();
+		Location loc = new Location("France", "Paris", "unknown", 12, 1111.9999, 9999.1111);
+		ArrayList<String> tags = new ArrayList<String>();
+		tags.add("free");
+		tags.add("new");
+		tags.add("modern art");
+		tags.add("architecture");
+		Attraction att = new Attraction(loc, "Pompidou", tags);
+		attractionData.updateAttractionList(att);
 	}
 
 }
