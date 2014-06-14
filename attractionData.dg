@@ -1,0 +1,43 @@
+<name><Eiffel Tower>
+<country><France>
+<city><Paris>
+<street><Champ de Mars>
+<addressNumber><5>
+<latitude><4851296.0>
+<longitude><217402.0>
+<tag><wonder>
+<tag><free>
+<tag><18th century>
+<tag><iron>
+<tag><tall>
+<tag><stairs>
+<tag><restaurant>
+
+<name><The Louvre>
+<country><France>
+<city><Paris>
+<street><Champ de Mars>
+<addressNumber><12>
+<latitude><1111.9999>
+<longitude><9999.1111>
+<tag><wonder>
+<tag><free>
+<tag><old>
+<tag><palace>
+<tag><museum>
+<tag><history>
+<tag><art>
+<tag><architecture>
+
+<name><Pompidou>
+<country><France>
+<city><Paris>
+<street><unknown>
+<addressNumber><12>
+<latitude><1111.9999>
+<longitude><9999.1111>
+<tag><free>
+<tag><new>
+<tag><modern art>
+<tag><architecture>
+
