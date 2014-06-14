@@ -1,6 +1,11 @@
 DestinationGuru
 ===============
 
-SYSC3020
+Carleton University
+SYSC-3020 
 
-Please use this for our project
+Group Members: 
+Daniel 
+Jonathan
+Mohammed
+Quoc-Nam
