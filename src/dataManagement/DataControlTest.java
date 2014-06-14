@@ -4,28 +4,43 @@
 package dataManagement;
 
 import static org.junit.Assert.*;
+
 import java.util.Hashtable;
+
+import org.junit.After;
+import org.junit.Before;
 import org.junit.Test;
 
 /**
  * @author Mohammed Ahmed-Muhsin
- * @version 1.0 
- * @date 2014-06-10
+ * @version 2.0 
+ * @date 2014-06-14
  * 
  * The following class will test the functionality of the DataControl class
  * In specific, we are testing that the class initializes properly and that we get the list of the attractions
  *
  */
 public class DataControlTest {
+	
+	private DataControl testDataControl;
 
+	@Before
+	/**
+	 * This method will be called before every test to make sure we are working with a fresh DataControl object 
+	 * at each instance of the test
+	 */
+	public void setUP() {
+		testDataControl = new DataControl();
+		
+	}
 	/**
 	 * Test method for {@link dataManagement.DataControl#DataControl()}.
 	 * Will test the constructor to ensure that the file that we get is initialized by checking if it is equal to null
 	 */
 	@Test
 	public void testDataControl() {
-		DataControl testDataControl = new DataControl();
-		assertEquals("Checking if the fileData object is initialized in constructor", true, testDataControl.fileData!=null); 
+		assertEquals("Checking if the fileAttractionData object is initialized in constructor", true, testDataControl.fileAttractionData!=null); 
+		assertEquals("Checking if the fileAlgorithmData object is initialized in constructor", true, testDataControl.fileAlgorithmData!=null); 
 	}
 
 	/**
@@ -35,7 +50,6 @@ public class DataControlTest {
 	 */
 	@Test
 	public void testGetList() {
-		DataControl testDataControl = new DataControl();
 		assertTrue("Checking that we return a Hashtable", testDataControl.getList() instanceof Hashtable<?,?>);		
 	}
 
@@ -46,6 +60,16 @@ public class DataControlTest {
 	@Test
 	public void testUpdateList() {
 	}
+	
+	/**
+	 * Test method for {@link dataManagement.DataControl#getAlgorithm()}.
+	 * Will test the getAlgorithm() method to ensure we receive an int value
+	 */
+	@Test
+	public void testGetAlgorithm() {
+		testDataControl.updateAlgorithm(3);
+		assertTrue("Check that we return the sensitivity 3", testDataControl.getAlgorithm() == 3);
+	}
 
 	/**
 	 * Test method for {@link dataManagement.DataControl#updateAlgorithm()}.
@@ -53,6 +77,10 @@ public class DataControlTest {
 	 */
 	@Test
 	public void testUpdateAlgorithm() {
+	}
+	
+	@After
+	public void tearDown() {
 	}
 
 }
