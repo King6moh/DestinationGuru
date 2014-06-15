@@ -1,5 +1,8 @@
 package recommender;
 
+import java.util.ArrayList;
+import java.util.Enumeration;
+
 import dataManagement.AttractionList;
 
 
@@ -34,6 +37,40 @@ public class RecommendationControl {
 		counter = 0;
 		
 	} //end constructor
+	
+	public RecommendationEntity getRecommendation() {
+		
+		recommendation.compileGeneralRecommendations(HotOrNot());
+		
+		HeadToHead();
+		//recommendation.compileRecommendations(tags);
+		
+		return recommendation;
+	} //end getRecommendation()
+	
+	private ArrayList<String> HotOrNot() {
+		
+		ArrayList<String> tags = new ArrayList<String>();
+		Enumeration<String> tagList = recommendation.getTags();
+		String tempTag;
+		
+		for (int i = 0; i < NUM_HOT_OR_NOT; i++) {
+			
+			tempTag = tagList.nextElement();
+			/*
+			if (client.askHotOrNot(tempTag)) {
+				tags.add(tempTag);
+			}
+			*/
+			
+		} //end for loop
+
+		return tags;
+	} //end HotOrNot()
+	
+	private void HeadToHead() {
+		
+	} //end HeadToHead()
 	
 	public String askHotOrNot(){
 		if(counter < NUM_HOT_OR_NOT){
