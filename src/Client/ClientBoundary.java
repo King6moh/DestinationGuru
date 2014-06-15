@@ -16,19 +16,23 @@ import javax.imageio.ImageIO;
 import javax.swing.*;
 import javax.swing.border.TitledBorder;
 
-class Client {
+import recommender.RecommendationControl;
+
+class ClientBoundary {
 
 	private GUI gui;
+	private RecommendationControl recomControl;
 
-	public Client(){
-		gui = new GUI();
+	public ClientBoundary(){
+		recomControl = new RecommendationControl();
+		gui = new GUI(recomControl);
 	}
 
 	/**
 	 * Main method used to run the client.
 	 */
 	public static void main(String args[]) throws Exception {
-		Client client = new Client();
+		ClientBoundary clientBoundary = new ClientBoundary();
 	}
 }
 
@@ -40,11 +44,18 @@ class GUI extends JFrame implements KeyListener { // KeyListener to allow for ke
 	private static final long serialVersionUID = 7237211201250882835L;
 	private TitlePanel titlePanel;
 	Font font = new Font("Times New Roman", Font.BOLD, 16);
+	
+	private String attractionName;
+	
+	private RecommendationControl recomControl;
 
 	/**
 	 * Constructor for GUI objects.
 	 */
-	public GUI() {
+	public GUI(RecommendationControl recomControl) {
+		
+		this.recomControl = recomControl;
+		attractionName = new String();
 		
 		// Initial (Skipped)
 		setTitle("TRAVELABULOUS");
@@ -52,25 +63,31 @@ class GUI extends JFrame implements KeyListener { // KeyListener to allow for ke
 
 		titlePanel = new TitlePanel();
 		titlePanel.setPreferredSize(new Dimension(563, 275));
-
-		// Hot or Not (Skipped)
-		setTitle("TRAVELABULOUS Hot-Or-Not");
-
-		this.getContentPane().add(titlePanel, BorderLayout.NORTH);
-		this.getContentPane().add(new HotOrNotPanel(), BorderLayout.CENTER);
-
-		// Head to Head
-		
-		setTitle("TRAVELABULOUS Head-To-Head");
-		
-		this.getContentPane().add(titlePanel, BorderLayout.NORTH);
-		this.getContentPane().add(new HeadToHeadPanel(), BorderLayout.CENTER);
 		
 		setLocationRelativeTo(null);
 
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		this.setResizable(false);
 		this.setVisible(true);
+
+		// Hot or Not (Skipped)
+		setTitle("TRAVELABULOUS Hot-Or-Not");
+		HotOrNotPanel hotOrNotPanel = new HotOrNotPanel(recomControl, attractionName);
+		this.getContentPane().add(titlePanel, BorderLayout.NORTH);
+		this.getContentPane().add(hotOrNotPanel, BorderLayout.CENTER);
+		revalidate();
+		
+		while(attractionName != null){ // Condition is never failing even though attractionName is being set to false...
+			repaint();
+		}
+		
+		this.getContentPane().remove(hotOrNotPanel);
+
+		// Head to Head
+		setTitle("TRAVELABULOUS Head-To-Head");
+		
+		this.getContentPane().add(titlePanel, BorderLayout.NORTH);
+		this.getContentPane().add(new HeadToHeadPanel(), BorderLayout.CENTER);		
 	}
 
 	/** Handle the key typed event from the text field. */
@@ -96,29 +113,35 @@ class GUI extends JFrame implements KeyListener { // KeyListener to allow for ke
 	}
 }
 
-class HotOrNotPanel extends JPanel implements KeyListener { // KeyListener to allow for keyboard shortcuts... not yet working
+class HotOrNotPanel extends JPanel implements KeyListener, ActionListener { // KeyListener to allow for keyboard shortcuts... not yet working
 
 	private static final long serialVersionUID = 7460790207139818093L;
 	private JButton hot, not;
 	private JPanel attractionPanel;
+	private String attractionName;
+	private RecommendationControl recomControl;
 	Font font = new Font("Times New Roman", Font.BOLD, 16);
 
 	/**
 	 * Constructor for the HotOrNot panel.
 	 */
-	public HotOrNotPanel(){		
-
-		addKeyListener(this);
+	public HotOrNotPanel(RecommendationControl recomControl, String attractionName){		
+		this.attractionName = attractionName;
+		this.recomControl = recomControl;
+		
+		addKeyListener(this); 
 
 		hot = new JButton("HOT!");
 		hot.setPreferredSize(new Dimension(250, 50));
 		hot.setBackground(Color.GREEN);
 		hot.setFont(font);
+		hot.addActionListener(this);
 
 		not = new JButton("Not");
 		not.setPreferredSize(new Dimension(250, 50));
 		not.setBackground(Color.RED);
 		not.setFont(font);
+		not.addActionListener(this);
 
 		attractionPanel = new JPanel();
 		attractionPanel.setPreferredSize(new Dimension(560, 300));
@@ -132,6 +155,10 @@ class HotOrNotPanel extends JPanel implements KeyListener { // KeyListener to al
 		this.add(attractionPanel, BorderLayout.CENTER);
 		this.add(buttonPanel, BorderLayout.SOUTH);
 	}
+	
+	public void updatePicture(String name){
+		attractionPanel.setBorder(new TitledBorder(BorderFactory.createLineBorder(Color.black), name));
+	}
 
 	/** Handle the key typed event from the text field. */
 	public void keyTyped(KeyEvent e) { 
@@ -153,6 +180,13 @@ class HotOrNotPanel extends JPanel implements KeyListener { // KeyListener to al
 				break;
 			} 
 		} catch(Exception exception){}
+	}
+
+	@Override
+	public void actionPerformed(ActionEvent ae) {		
+		attractionName = recomControl.askHotOrNot();
+		updatePicture(attractionName);
+		//System.out.println(attractionName); // DEBUGGING
 	}
 }
 
