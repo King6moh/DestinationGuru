@@ -55,9 +55,9 @@ class GUI extends JFrame implements KeyListener { // KeyListener to allow for ke
 	public GUI(RecommendationControl recomControl) {
 		
 		this.recomControl = recomControl;
-		attractionName = new String();
+		attractionName = new String("attractionName");
 		
-		// Initial (Skipped)
+		// Initial
 		setTitle("TRAVELABULOUS");
 		setSize(562,700);
 
@@ -70,14 +70,14 @@ class GUI extends JFrame implements KeyListener { // KeyListener to allow for ke
 		this.setResizable(false);
 		this.setVisible(true);
 
-		// Hot or Not (Skipped)
+		// Hot or Not
 		setTitle("TRAVELABULOUS Hot-Or-Not");
 		HotOrNotPanel hotOrNotPanel = new HotOrNotPanel(recomControl, attractionName);
 		this.getContentPane().add(titlePanel, BorderLayout.NORTH);
 		this.getContentPane().add(hotOrNotPanel, BorderLayout.CENTER);
 		revalidate();
 		
-		while(attractionName != null){ // Condition is never failing even though attractionName is being set to false...
+		while(!hotOrNotPanel.getAttractionName().equals("DONE")){ 
 			repaint();
 		}
 		
@@ -86,8 +86,17 @@ class GUI extends JFrame implements KeyListener { // KeyListener to allow for ke
 		// Head to Head
 		setTitle("TRAVELABULOUS Head-To-Head");
 		
+		HeadToHeadPanel headToHeadPanel = new HeadToHeadPanel(recomControl);
 		this.getContentPane().add(titlePanel, BorderLayout.NORTH);
-		this.getContentPane().add(new HeadToHeadPanel(), BorderLayout.CENTER);		
+		this.getContentPane().add(headToHeadPanel, BorderLayout.CENTER);	
+		revalidate();
+		
+		while(!headToHeadPanel.getAttractionNames()[0].equals("DONE")){ 
+			repaint();
+			//System.out.println("here:\t" + headToHeadPanel.getAttractionNames()[0]);
+		}
+		
+		this.getContentPane().remove(hotOrNotPanel);
 	}
 
 	/** Handle the key typed event from the text field. */
@@ -113,7 +122,7 @@ class GUI extends JFrame implements KeyListener { // KeyListener to allow for ke
 	}
 }
 
-class HotOrNotPanel extends JPanel implements KeyListener, ActionListener { // KeyListener to allow for keyboard shortcuts... not yet working
+class HotOrNotPanel extends JPanel implements ActionListener { 
 
 	private static final long serialVersionUID = 7460790207139818093L;
 	private JButton hot, not;
@@ -129,8 +138,6 @@ class HotOrNotPanel extends JPanel implements KeyListener, ActionListener { // K
 		this.attractionName = attractionName;
 		this.recomControl = recomControl;
 		
-		addKeyListener(this); 
-
 		hot = new JButton("HOT!");
 		hot.setPreferredSize(new Dimension(250, 50));
 		hot.setBackground(Color.GREEN);
@@ -160,70 +167,61 @@ class HotOrNotPanel extends JPanel implements KeyListener, ActionListener { // K
 		attractionPanel.setBorder(new TitledBorder(BorderFactory.createLineBorder(Color.black), name));
 	}
 
-	/** Handle the key typed event from the text field. */
-	public void keyTyped(KeyEvent e) { 
-	}
-
-	/** Handle the key-pressed event from the text field. */
-	public void keyReleased(KeyEvent e) {
-	}
-
-	public void keyPressed(KeyEvent e) {
-		int keyCode = e.getKeyCode();
-		try{
-			switch( keyCode ) { 
-			case KeyEvent.VK_LEFT: // Yes or left attraction
-				System.out.println("Left");
-				break;
-			case KeyEvent.VK_RIGHT: // No or right attraction
-				System.out.println("Right");
-				break;
-			} 
-		} catch(Exception exception){}
-	}
-
 	@Override
 	public void actionPerformed(ActionEvent ae) {		
 		attractionName = recomControl.askHotOrNot();
 		updatePicture(attractionName);
-		//System.out.println(attractionName); // DEBUGGING
+	}
+	
+	public String getAttractionName(){
+		return attractionName;
 	}
 }
 
-class HeadToHeadPanel extends JPanel implements KeyListener { // KeyListener to allow for keyboard shortcuts... not yet working
+class HeadToHeadPanel extends JPanel implements ActionListener {
 
 	static final long serialVersionUID = -2813693825735504436L;
 	private JButton left, right, both;
 	private JPanel attractionPanel;
+	private JLabel leftLabel, rightLabel;
+	private String[] attractionNames;
+	private RecommendationControl recomControl;
 	Font font = new Font("Times New Roman", Font.BOLD, 16);
 
 	/**
 	 * Constructor for the HeadToHead panel.
 	 */
-	public HeadToHeadPanel(){		
-
-		addKeyListener(this);
-
+	public HeadToHeadPanel(RecommendationControl recomControl){	
+		this.recomControl = recomControl;
+		attractionNames = new String[2];
+		attractionNames[0] = new String();
+		attractionNames[1] = new String();
+		
 		left = new JButton("Left");
 		left.setPreferredSize(new Dimension(250, 50));
 		left.setBackground(Color.WHITE);
 		left.setFont(font);
+		left.addActionListener(this);
 
 		right = new JButton("Right");
 		right.setPreferredSize(new Dimension(250, 50));
 		right.setBackground(Color.WHITE);
 		right.setFont(font);
+		right.addActionListener(this);
 		
 		both = new JButton("BOTH!");
 		both.setPreferredSize(new Dimension(250, 50));
 		both.setBackground(Color.WHITE);
 		both.setFont(font);
+		both.addActionListener(this);
 
 		attractionPanel = new JPanel();
 		attractionPanel.setPreferredSize(new Dimension(560, 275));
 		attractionPanel.setBorder(new TitledBorder(BorderFactory.createLineBorder(Color.black), "Attraction Picture"));
-		attractionPanel.add(new JLabel("Left Picture", SwingConstants.LEFT), BorderLayout.WEST);
-		attractionPanel.add(new JLabel("Right Picture", SwingConstants.RIGHT), BorderLayout.EAST);
+		leftLabel = new JLabel("Left Picture", SwingConstants.LEFT);
+		rightLabel = new JLabel("Right Picture", SwingConstants.RIGHT);
+		attractionPanel.add(leftLabel, BorderLayout.WEST);
+		attractionPanel.add(rightLabel, BorderLayout.EAST);
 
 		JPanel buttonPanel = new JPanel(new GridBagLayout());
 		GridBagConstraints constraints = new GridBagConstraints(); 
@@ -247,27 +245,25 @@ class HeadToHeadPanel extends JPanel implements KeyListener { // KeyListener to 
 		this.add(attractionPanel, BorderLayout.CENTER);
 		this.add(buttonPanel, BorderLayout.SOUTH);
 	}
-
-	/** Handle the key typed event from the text field. */
-	public void keyTyped(KeyEvent e) { 
+	
+	public void updatePictures(String[] name){
+		//attractionPanel.setBorder(new TitledBorder(BorderFactory.createLineBorder(Color.black), "Attraction Picture"));
+		leftLabel.setText(name[0]);
+		//attractionPanel.add(new JLabel(name[0], SwingConstants.LEFT), BorderLayout.WEST);
+		rightLabel.setText(name[1]);
+		//ttractionPanel.add(new JLabel(name[1], SwingConstants.RIGHT), BorderLayout.EAST);
+		//revalidate();
 	}
 
-	/** Handle the key-pressed event from the text field. */
-	public void keyReleased(KeyEvent e) {
+	@Override
+	public void actionPerformed(ActionEvent ae) {		
+		attractionNames = recomControl.askHeadToHead();
+		updatePictures(attractionNames);
+		//System.out.println(attractionNames[0] + "\t" + attractionNames[1]); // DEBUGGING
 	}
-
-	public void keyPressed(KeyEvent e) {
-		int keyCode = e.getKeyCode();
-		try{
-			switch( keyCode ) { 
-			case KeyEvent.VK_LEFT: // Yes or left attraction
-				System.out.println("Left");
-				break;
-			case KeyEvent.VK_RIGHT: // No or right attraction
-				System.out.println("Right");
-				break;
-			} 
-		} catch(Exception exception){}
+	
+	public String[] getAttractionNames(){
+		return attractionNames;
 	}
 }
 
