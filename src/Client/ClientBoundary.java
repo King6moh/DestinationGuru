@@ -39,11 +39,12 @@ class ClientBoundary {
 /**
  * Gui class used for spectator view.
  */
-class GUI extends JFrame implements KeyListener { // KeyListener to allow for keyboard shortcuts... not yet working
+class GUI extends JFrame implements KeyListener, ActionListener { // KeyListener to allow for keyboard shortcuts... not yet working
 
 	private static final long serialVersionUID = 7237211201250882835L;
 	private TitlePanel titlePanel;
 	Font font = new Font("Times New Roman", Font.BOLD, 16);
+	private boolean ready;
 	
 	private String attractionName;
 	
@@ -56,6 +57,7 @@ class GUI extends JFrame implements KeyListener { // KeyListener to allow for ke
 		
 		this.recomControl = recomControl;
 		attractionName = new String("attractionName");
+		ready = false;
 		
 		// Initial
 		setTitle("TRAVELABULOUS");
@@ -64,11 +66,25 @@ class GUI extends JFrame implements KeyListener { // KeyListener to allow for ke
 		titlePanel = new TitlePanel();
 		titlePanel.setPreferredSize(new Dimension(563, 275));
 		
+		JPanel mainPanel = new JPanel();
+		JButton continueButton = new JButton("Begin! :)");
+		continueButton.addActionListener(this);
+		mainPanel.add(continueButton);
+		
+		this.getContentPane().add(titlePanel, BorderLayout.NORTH);
+		this.getContentPane().add(mainPanel, BorderLayout.CENTER);
+		
 		setLocationRelativeTo(null);
 
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		this.setResizable(false);
 		this.setVisible(true);
+		
+		while(!ready){ // wait for button click
+			repaint();
+		} 
+		
+		this.getContentPane().remove(mainPanel);
 
 		// Hot or Not
 		setTitle("TRAVELABULOUS Hot-Or-Not");
@@ -93,10 +109,18 @@ class GUI extends JFrame implements KeyListener { // KeyListener to allow for ke
 		
 		while(!headToHeadPanel.getAttractionNames()[0].equals("DONE")){ 
 			repaint();
-			//System.out.println("here:\t" + headToHeadPanel.getAttractionNames()[0]);
 		}
 		
-		this.getContentPane().remove(hotOrNotPanel);
+		this.getContentPane().remove(headToHeadPanel);
+		
+		// Head to Head
+		setTitle("TRAVELABULOUS Recommendations");
+				
+		JPanel recommendationsPanel = new JPanel();
+		JLabel recommendationsLabel = new JLabel("Recommendations:");
+		recommendationsPanel.add(recommendationsLabel);
+		this.getContentPane().add(recommendationsPanel);
+		revalidate();
 	}
 
 	/** Handle the key typed event from the text field. */
@@ -119,6 +143,11 @@ class GUI extends JFrame implements KeyListener { // KeyListener to allow for ke
 				break;
 			} 
 		} catch(Exception exception){}
+	}
+
+	@Override
+	public void actionPerformed(ActionEvent arg0) {
+		ready = true;
 	}
 }
 
@@ -247,19 +276,14 @@ class HeadToHeadPanel extends JPanel implements ActionListener {
 	}
 	
 	public void updatePictures(String[] name){
-		//attractionPanel.setBorder(new TitledBorder(BorderFactory.createLineBorder(Color.black), "Attraction Picture"));
 		leftLabel.setText(name[0]);
-		//attractionPanel.add(new JLabel(name[0], SwingConstants.LEFT), BorderLayout.WEST);
 		rightLabel.setText(name[1]);
-		//ttractionPanel.add(new JLabel(name[1], SwingConstants.RIGHT), BorderLayout.EAST);
-		//revalidate();
 	}
 
 	@Override
 	public void actionPerformed(ActionEvent ae) {		
 		attractionNames = recomControl.askHeadToHead();
 		updatePictures(attractionNames);
-		//System.out.println(attractionNames[0] + "\t" + attractionNames[1]); // DEBUGGING
 	}
 	
 	public String[] getAttractionNames(){
