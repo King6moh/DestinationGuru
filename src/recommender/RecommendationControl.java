@@ -40,6 +40,7 @@ public class RecommendationControl {
 	/***
 	 * RecommendationControl constructor
 	 */
+
 	public RecommendationControl(ClientBoundary client) {
 
 		recommendation = new RecommendationEntity();
@@ -56,6 +57,7 @@ public class RecommendationControl {
 
 		HeadToHead();
 		recommendation.compileRecommendations();
+		//recommendation.compileRecommendations(tags);
 
 		return recommendation;
 	} //end getRecommendation()
