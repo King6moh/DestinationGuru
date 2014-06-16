@@ -29,11 +29,15 @@ public class ClientBoundary {
 		gui = new GUI(recomControl);
 	}
 	
-	public void askHotOrNot(String tag) {
+	public boolean askHotOrNot(String tag) {
+		
+		return true;
 		
 	} //end askHotOrNot()
 	
-	public void askHeadToHead(Attraction attraction_1, Attraction attraction_2) {
+	public int askHeadToHead(Attraction attraction_1, Attraction attraction_2) {
+		
+		return 0;
 		
 	} //end askHeadToHead()
 
