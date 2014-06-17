@@ -11,6 +11,7 @@ import java.awt.event.KeyListener;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
@@ -25,7 +26,6 @@ public class CustomerBoundary {
 	private RecommendationControl recomControl;
 
 	public CustomerBoundary(){
-		super();
 		recomControl = new RecommendationControl(this);
 		gui = new GUI(recomControl);
 	}
@@ -74,11 +74,11 @@ class GUI extends JFrame implements KeyListener, ActionListener { // KeyListener
 		ready = false;
 
 		// Initial
-		setTitle("TRAVELABULOUS");
+		setTitle("TRAVELABULOUS - Destination Guru");
 		setSize(562,700);
 
 		titlePanel = new TitlePanel();
-		titlePanel.setPreferredSize(new Dimension(563, 275));
+		titlePanel.setPreferredSize(new Dimension(563, 175));
 
 		DestinationGuruPanel dgPanel = new DestinationGuruPanel();
 		dgPanel.setPreferredSize(new Dimension(563, 150));
@@ -88,9 +88,9 @@ class GUI extends JFrame implements KeyListener, ActionListener { // KeyListener
 		continueButton.addActionListener(this);
 		mainPanel.add(continueButton);
 
-		this.getContentPane().add(titlePanel, BorderLayout.NORTH);
+		this.getContentPane().add(dgPanel, BorderLayout.NORTH);
+		this.getContentPane().add(titlePanel, BorderLayout.SOUTH);
 		this.getContentPane().add(mainPanel, BorderLayout.CENTER);
-		this.getContentPane().add(dgPanel, BorderLayout.SOUTH);
 
 		setLocationRelativeTo(null);
 
@@ -138,6 +138,11 @@ class GUI extends JFrame implements KeyListener, ActionListener { // KeyListener
 		JPanel recommendationsPanel = new JPanel();
 		JLabel recommendationsLabel = new JLabel("Recommendations:");
 		recommendationsPanel.add(recommendationsLabel);
+
+		ArrayList<Attraction> finalRecoms = recomControl.updateRecomEntity();
+		for (Attraction att: finalRecoms){
+			recommendationsPanel.add(new JLabel(att.getName()));
+		}
 
 		this.getContentPane().add(recommendationsPanel, BorderLayout.CENTER);
 		this.getContentPane().add(dgPanel, BorderLayout.SOUTH);
@@ -314,13 +319,13 @@ class HeadToHeadPanel extends JPanel implements ActionListener {
 
 	public void updatePictures(Attraction[] name){
 		attractionPanel.setBorder(new TitledBorder(BorderFactory.createLineBorder(Color.black), recomControl.getCurrentTag()));
-		
+
 		if (name[0] != null){
 			leftLabel.setText(name[0].getName());
 		} else if (name[0] == null){
 			leftLabel.setText("NO picture found");
 		}
-		
+
 		if (name[1] != null){
 			rightLabel.setText(name[1].getName());
 		} else if (name[1] == null){

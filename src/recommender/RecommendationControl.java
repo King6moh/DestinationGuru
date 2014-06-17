@@ -126,8 +126,9 @@ public class RecommendationControl {
 		}
 	}
 	
-	public void updateRecomEntity(){
+	public ArrayList<Attraction> updateRecomEntity(){
 		recommendation.desiredTagsSet(tags);
+		return recommendation.getFinalRecoms();
 	}
 	
 } //end class

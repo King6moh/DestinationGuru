@@ -74,4 +74,8 @@ public class RecommendationEntity {
 		}
 	}
 	
+	public ArrayList<Attraction> getFinalRecoms(){
+		return finalRecoms;
+	}
+	
 } //end class
