@@ -34,6 +34,14 @@ public class FileAttractionDataTester {
 		testAttractionData = new FileAttractionData();
 	}// end method
 	
+	@After
+	/**
+	 * After each method
+	 */
+	public void tearDown(){
+		
+	}
+	
 	/**
 	 * Test method for {@link dataManagement.FileAttractionData#FileAttractionData()}.
 	 * This will test the constructor and ensure that it creates the proper fields and initializes them
@@ -55,7 +63,7 @@ public class FileAttractionDataTester {
 	public void testGetAttractionList() {
 
 		assertTrue("Checking that we receive the correct type", testAttractionData.getAttractionList() instanceof ArrayList<?>);
-		assertEquals("Checking that we have the correct number of attractions in the list", 3,  testAttractionData.getAttractionList().size());
+		assertEquals("Checking that we have the correct number of attractions in the list", 4,  testAttractionData.getAttractionList().size());
 
 	}
 	
@@ -169,6 +177,48 @@ public class FileAttractionDataTester {
 		testAttractionList = testAttractionData.getAttractionList();
 		assertEquals("Checking for correct number of tags for first attraction",  7, testAttractionList.get(0).getTags().size());
 		assertEquals("Checking for correct number of tags for second attraction", 8, testAttractionList.get(1).getTags().size());
+	}
+	
+	/**
+	 * Test method for {@link dataManagement.FileAttractionData#updateAttractionList()}.
+	 * Checks to see if we have the proper amount of tags for both attractions
+	 */
+	@Test
+	public void testUpdateAttraction() {
+		ArrayList<Attraction> testAttractionList;
+		// create the location for our new attraction
+		Location locationOrsay = new Location("France", "Paris", "Rue de la Legion d'Honneur", 1, 4886013.4, 2326540.0);
+		
+		// create the list of tags for the attraction
+		ArrayList<String> tagsOrsay = new ArrayList<String>();
+		tagsOrsay.add("museum");
+		tagsOrsay.add("art");
+		
+		// create a new attraction to pass and update our list
+		Attraction attractionOrsay = new Attraction(locationOrsay, "Musee D'Orsay", tagsOrsay);
+		
+		testAttractionData.updateAttractionList(attractionOrsay);
+		testAttractionData.printAllAttractions();
+
+		testAttractionList = testAttractionData.getAttractionList();
+		assertEquals("Checking that we have increased the number of attractions", 4, testAttractionList.size());		
+		assertEquals("Checking that the Orsay Musee attraction is in the list", "Musee D'Orsay", testAttractionList.get(3).getName());
+	}
+	
+	/**
+	 * Test method for {@link dataManagement.FileAttractionData#updateAttractionList()}.
+	 * Checks to add an invalid attraction name and ensures that the size stayed the same
+	 */
+	@Test
+	public void testInvalidUpdateAttraction() {
+		ArrayList<Attraction> testAttractionList;
+		
+		Attraction attractionInvalid = new Attraction("Invalid Name//#$");
+		testAttractionData.updateAttractionList(attractionInvalid);
+		
+		testAttractionList = testAttractionData.getAttractionList();
+		assertEquals("Checking that we have not increased the number of attractions", 4, testAttractionList.size());
+		
 	}
 
 }

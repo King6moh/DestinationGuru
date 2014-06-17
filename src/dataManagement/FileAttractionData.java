@@ -28,6 +28,7 @@ public class FileAttractionData extends ErrorLog {
 		file = new FileIO("attractionData.dg");
 		attractionList = new ArrayList<Attraction>();
 		tagTable = new Hashtable<String, ArrayList<Attraction>>();
+		getFileData();
 	}
 	
 	/**
@@ -49,8 +50,7 @@ public class FileAttractionData extends ErrorLog {
 		Attraction attraction = null;
 		ArrayList<String> fileList = null;
 		fileList = file.getLines();
-		String input = "";
-		Pattern basicPattern = Pattern.compile("<(\\w+)><([a-zA-Z0-9\\.\\s]+)>");
+		Pattern basicPattern = Pattern.compile("<(\\w+)><([a-zA-Z0-9'&\\.\\s]+)>");
 		for (String line: fileList)
 		{
 			Matcher matcher = basicPattern.matcher(line);
@@ -132,6 +132,13 @@ public class FileAttractionData extends ErrorLog {
 	 */
 	public void updateAttractionList(Attraction attraction)
 	{
+		Pattern basicPattern = Pattern.compile("[a-zA-Z0-9'&\\.\\s]+");
+		Matcher matcher = basicPattern.matcher(attraction.getName());
+		if (!matcher.find())
+		{
+			logger.info("Attraction name: " + attraction.getName() + " is an invalid name");
+			return;
+		}
 		Attraction changed = null;
 		for (Attraction a: attractionList)
 		{

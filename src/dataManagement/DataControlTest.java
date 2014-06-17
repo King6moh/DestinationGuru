@@ -67,11 +67,20 @@ public class DataControlTest {
 	 */
 	@Test
 	public void testGetAlgorithm() {
-		int originalSensitivity = testDataControl.getAlgorithm();
-		testDataControl.updateAlgorithm(3);
-		assertTrue("Check that we return the sensitivity 3", testDataControl.getAlgorithm() == 3);
-		// change back to the original algorithm
-		testDataControl.updateAlgorithm(originalSensitivity);
+		AlgorithmParameters original = new AlgorithmParameters();
+		original = testDataControl.getAlgorithm();
+		
+		// testing that the new values of sensitivity: 3, head-to-head and hot-or-not: 10
+		AlgorithmParameters algorithmTest = new AlgorithmParameters(3, 10, 10);
+		testDataControl.updateAlgorithm(algorithmTest);
+		algorithmTest = testDataControl.getAlgorithm();
+		assertEquals("Checking that the sensitivity", 3, algorithmTest.sensitivity);
+		assertEquals("Checking that the number of head to head", 10, algorithmTest.numHH);
+		assertEquals("Checking that the number of hot or not", 10, algorithmTest.numHN);
+		
+		// setting to original algorithm
+		testDataControl.updateAlgorithm(original);
+		
 	}
 
 	/**
