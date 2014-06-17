@@ -229,8 +229,11 @@ class HotOrNotPanel extends JPanel implements ActionListener {
 		updatePicture(attractionName);
 		if(ae != null){
 			if (ae.getActionCommand() == "HOT!"){
-				// save tag
+				recomControl.hot(attractionName);
 			} // otherwise ae.getActionCommand() == "not" --> discard tag
+			else if (ae.getActionCommand() == "Not"){
+				recomControl.not(attractionName);
+			}
 		}
 	}
 

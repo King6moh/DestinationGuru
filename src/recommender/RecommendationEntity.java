@@ -68,9 +68,8 @@ public class RecommendationEntity {
 	} //end getAttractions()
 	
 	public void incMatchedTags(String tag) {
-		while (list.get(tag).iterator().hasNext())
-		{
-			list.get(tag).iterator().next().incMatchedTags();
+		for (Attraction attr : list.get(tag)) {
+			attr.incMatchedTags();
 		}
 	}
 	

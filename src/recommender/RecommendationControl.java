@@ -8,7 +8,6 @@ import java.util.Hashtable;
 import com.sun.security.ntlm.Client;
 
 import customerBoundary.CustomerBoundary;
-
 import dataManagement.Attraction;
 import dataManagement.DataControl;
 
@@ -17,7 +16,9 @@ public class RecommendationControl {
 	private RecommendationEntity recommendation;
 	private DataControl dataManagement;
 	private CustomerBoundary client;
-
+	
+	private Enumeration<String> tagList;
+	ArrayList<String> tags;
 	private int hnCounter, hhCounter;
 
 	public static final String[] attractionTypes = {
@@ -36,8 +37,8 @@ public class RecommendationControl {
 		"The Louvre",
 	"Musee d'Orsay"};
 
-	public static final int NUM_HOT_OR_NOT = 1;
-	public static final int NUM_HEAD_TO_HEAD = 1;
+	public static final int NUM_HOT_OR_NOT = 10;
+	public static final int NUM_HEAD_TO_HEAD = 10;
 
 	/***
 	 * RecommendationControl constructor
@@ -50,6 +51,8 @@ public class RecommendationControl {
 		this.client = client;
 		hnCounter = 0; 
 		hhCounter = 0;
+		tagList = recommendation.getTags();
+		tags = new ArrayList<String>();
 
 	} //end constructor
 
@@ -71,7 +74,6 @@ public class RecommendationControl {
 	
 	private ArrayList<String> HotOrNot() {
 
-		ArrayList<String> tags = new ArrayList<String>();
 		Enumeration<String> tagList = recommendation.getTags();
 		String tempTag;
 
@@ -93,10 +95,6 @@ public class RecommendationControl {
 
 		return tags;
 	} //end HotOrNot()
-	
-	public void AnswerHotOrNot(boolean answer) {
-		
-	}
 
 	private void HeadToHead() {
 
@@ -127,10 +125,19 @@ public class RecommendationControl {
 
 	public String askHotOrNot(){
 		if(hnCounter < NUM_HOT_OR_NOT){
-			return attractionTypes[hnCounter++];
+			hnCounter++;
+			return tagList.nextElement();
 		} else {
 			return "DONE";
 		}
+	}
+	
+	public void hot(String tag) {
+		recommendation.incMatchedTags(tag);
+	}
+	
+	public void not(String tag) {
+		tags.add(tag);
 	}
 
 	public String[] askHeadToHead(){
