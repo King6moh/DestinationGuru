@@ -10,14 +10,12 @@ import com.sun.security.ntlm.Client;
 import customerBoundary.CustomerBoundary;
 
 import dataManagement.Attraction;
-import dataManagement.AttractionList;
 import dataManagement.DataControl;
 
 public class RecommendationControl {
 
 	private RecommendationEntity recommendation;
 	private DataControl dataManagement;
-	private AttractionList attractionList;
 	private CustomerBoundary client;
 
 	private int hnCounter, hhCounter;
