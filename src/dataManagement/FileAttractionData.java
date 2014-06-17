@@ -112,13 +112,17 @@ public class FileAttractionData extends ErrorLog {
 						tagTable.put(matcher.group(2), tempList);
 					}
 				}else {
+					open();
 					logger.info("Unrecognized identifier: " + matcher.group(1));
+					close();
 				}
 			}else {
 				if (!line.equals(""))
 				{
 					System.out.println("line did not match: " + line);
+					open();
 					logger.info("line did not match: " + line);
+					close();
 				}	
 			}
 		}
@@ -136,7 +140,9 @@ public class FileAttractionData extends ErrorLog {
 		Matcher matcher = basicPattern.matcher(attraction.getName());
 		if (!matcher.find())
 		{
+			open();
 			logger.info("Attraction name: " + attraction.getName() + " is an invalid name");
+			close();
 			return;
 		}
 		Attraction changed = null;

@@ -46,7 +46,9 @@ public class FileIO extends ErrorLog {
 		try {
 			reader = new BufferedReader(new FileReader(file));
 		} catch (FileNotFoundException e) {
+			open();
 			logger.info("Error creating fileReader " + e);
+			close();
 		}
 	}
 	
@@ -58,7 +60,9 @@ public class FileIO extends ErrorLog {
 		try {
 			reader.close();
 		} catch (IOException e) {
+			open();
 			logger.info("Error closing BufferedReader " + e);
+			close();
 		}
 	}
 	/**
@@ -77,7 +81,9 @@ public class FileIO extends ErrorLog {
 				lineArray.add(line);
 			}
 		}catch (IOException e) {
+			open();
 			logger.info("Error reading from file " + e);
+			close();
 		}
 		closeBufferedReader();
 		return lineArray;
@@ -89,7 +95,9 @@ public class FileIO extends ErrorLog {
 		try {
 			writer = new BufferedWriter(new FileWriter(file));
 		} catch (IOException e) {
+			open();
 			logger.info("Error creating BufferedWriter "  +e);
+			close();
 		}
 	}
 	
@@ -98,7 +106,9 @@ public class FileIO extends ErrorLog {
 		try {
 			writer.close();
 		} catch (IOException e) {
+			open();
 			logger.info("Error closing BufferedWriter " + e);
+			close();
 		}
 	}
 	
@@ -117,7 +127,9 @@ public class FileIO extends ErrorLog {
 			}
 			
 		} catch (IOException e) {
+			open();
 			logger.info("Error writing to file" + e);
+			close();
 		}
 		closeBufferedWriter();
 		
