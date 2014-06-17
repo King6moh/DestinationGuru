@@ -18,7 +18,8 @@ public class RecommendationControl {
 	private CustomerBoundary client;
 	
 	private Enumeration<String> tagList;
-	ArrayList<String> tags;
+	private ArrayList<String> tags;
+	private int tagCount;
 	private int hnCounter, hhCounter;
 
 	public static final String[] attractionTypes = {
@@ -51,6 +52,7 @@ public class RecommendationControl {
 		this.client = client;
 		hnCounter = 0; 
 		hhCounter = 0;
+		tagCount = 0;
 		tagList = recommendation.getTags();
 		tags = new ArrayList<String>();
 
@@ -128,7 +130,8 @@ public class RecommendationControl {
 
 	public Attraction[] askHeadToHead(){
 		Attraction[] temp = new Attraction[2];
-		String tag = tags.iterator().next();
+		String tag = tags.get(tagCount++);
+		System.out.println(tag);
 		if(hhCounter < NUM_HEAD_TO_HEAD){
 			hhCounter++;
 			temp[0] = recommendation.getList().get(tag).iterator().next();
