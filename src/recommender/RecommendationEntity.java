@@ -2,6 +2,7 @@ package recommender;
 
 import java.util.ArrayList;
 import java.util.Enumeration;
+import java.util.HashSet;
 import java.util.Hashtable;
 import java.util.StringTokenizer;
 
@@ -9,8 +10,10 @@ import dataManagement.Attraction;
 
 public class RecommendationEntity {
 
-	private ArrayList<Attraction> recommendations;	
+	private ArrayList<Attraction> recommendations, finalRecoms;	
 	private Hashtable<String, ArrayList<Attraction>> list;
+	private HashSet<String> desiredTags;
+	private int sensitivity;
 	
 	/***
 	 * RecommendationEntity constructor
@@ -21,9 +24,11 @@ public class RecommendationEntity {
 		
 	} // end constructor
 	
-	public RecommendationEntity(Hashtable<String, ArrayList<Attraction>> table) {
+	public RecommendationEntity(int sensitivity, Hashtable<String, ArrayList<Attraction>> table) {
 		recommendations = new ArrayList<Attraction>();
+		finalRecoms = new ArrayList<Attraction>();
 		list = table;
+		this.sensitivity = sensitivity;
 	}
 	
 	public void compileRecommendations() {
@@ -54,6 +59,17 @@ public class RecommendationEntity {
 		if (list.containsKey(tag)) {
 			for (Attraction attr : list.get(tag)) {
 				attr.incMatchedTags();
+			}
+		}
+	}
+	
+	public void desiredTagsSet(ArrayList<String> tagList){
+		desiredTags = new HashSet<String>(tagList);
+		for (String tag: desiredTags){
+			for (Attraction att: list.get(tag)){
+				if(att.incMatchedTags() == sensitivity){
+					finalRecoms.add(att);
+				}
 			}
 		}
 	}
