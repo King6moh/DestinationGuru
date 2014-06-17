@@ -79,6 +79,9 @@ class GUI extends JFrame implements KeyListener, ActionListener { // KeyListener
 		titlePanel = new TitlePanel();
 		titlePanel.setPreferredSize(new Dimension(563, 275));
 		
+		DestinationGuruPanel dgPanel = new DestinationGuruPanel();
+		dgPanel.setPreferredSize(new Dimension(563, 150));
+		
 		JPanel mainPanel = new JPanel();
 		JButton continueButton = new JButton("Get Recommendations!");
 		continueButton.addActionListener(this);
@@ -86,6 +89,7 @@ class GUI extends JFrame implements KeyListener, ActionListener { // KeyListener
 		
 		this.getContentPane().add(titlePanel, BorderLayout.NORTH);
 		this.getContentPane().add(mainPanel, BorderLayout.CENTER);
+		this.getContentPane().add(dgPanel, BorderLayout.SOUTH);
 		
 		setLocationRelativeTo(null);
 
@@ -98,6 +102,7 @@ class GUI extends JFrame implements KeyListener, ActionListener { // KeyListener
 		} 
 		
 		this.getContentPane().remove(mainPanel);
+		this.getContentPane().remove(dgPanel);
 
 		// Hot or Not
 		setTitle("TRAVELABULOUS Hot-Or-Not");
@@ -132,7 +137,10 @@ class GUI extends JFrame implements KeyListener, ActionListener { // KeyListener
 		JPanel recommendationsPanel = new JPanel();
 		JLabel recommendationsLabel = new JLabel("Recommendations:");
 		recommendationsPanel.add(recommendationsLabel);
-		this.getContentPane().add(recommendationsPanel);
+		
+		this.getContentPane().add(recommendationsPanel, BorderLayout.CENTER);
+		this.getContentPane().add(dgPanel, BorderLayout.SOUTH);
+		
 		revalidate();
 	}
 
@@ -317,22 +325,27 @@ class TitlePanel extends JPanel {
 	public TitlePanel() {
 		try {                
 			image = ImageIO.read(new File("Logo.jpg"));
-			setFocusable(true);
-			requestFocus();
-
-			InputMap im = getInputMap(WHEN_IN_FOCUSED_WINDOW);
-			im.put(KeyStroke.getKeyStroke(KeyEvent.VK_LEFT, 0), "LEFT");
-
-			ActionMap am = getActionMap();
-			am.put("LEFT", new AbstractAction() {
-				@Override
-				public void actionPerformed(ActionEvent arg0) {
-				}
-			}
-					);
-
 		} catch (IOException ex) {
-			System.out.println("Couldnt read file");
+			System.out.println("Couldnt load Travelabulous logo.jpg file");
+		}
+	}
+
+	@Override
+	protected void paintComponent(Graphics g) {
+		super.paintComponent(g);
+		g.drawImage(image, 0, 0, null); // see javadoc for more info on the parameters            
+	}
+}
+
+class DestinationGuruPanel extends JPanel {
+
+	private BufferedImage image;	   
+
+	public DestinationGuruPanel() {
+		try {                
+			image = ImageIO.read(new File("DestinationGuru.jpg"));
+		} catch (IOException ex) {
+			System.out.println("Couldnt load DestinationGuru.jpg file");
 		}
 	}
 
