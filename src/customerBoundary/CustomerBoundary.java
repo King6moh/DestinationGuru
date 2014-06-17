@@ -118,7 +118,7 @@ class GUI extends JFrame implements KeyListener, ActionListener { // KeyListener
 				this.setVisible(true);
 				
 				while(state == 0){ // wait for button click
-					this.repaint();
+					repaint();
 				} 
 				
 				while(true);
@@ -234,7 +234,8 @@ class GUI extends JFrame implements KeyListener, ActionListener { // KeyListener
 	@Override
 	public void actionPerformed(ActionEvent arg0) {
 		//ready = true;
-		recomControl.getRecommendation();
+		//recomControl.getRecommendation();
+		this.HotOrNot("This");
 	}
 }
 

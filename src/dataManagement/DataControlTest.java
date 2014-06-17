@@ -59,11 +59,15 @@ public class DataControlTest {
 	 */
 	@Test
 	public void testUpdateList() {
+		// create a new attraction to pass and update our list
+		Attraction attractionOrsay = new Attraction("Musee D'Orsay");
+		testDataControl.updateList(attractionOrsay);
 	}
 	
 	/**
 	 * Test method for {@link dataManagement.DataControl#getAlgorithm()}.
 	 * Will test the getAlgorithm() method to ensure we receive an int value
+	 * Tests updateAlgorithm in the process
 	 */
 	@Test
 	public void testGetAlgorithm() {
@@ -81,14 +85,9 @@ public class DataControlTest {
 		// setting to original algorithm
 		testDataControl.updateAlgorithm(original);
 		
-	}
-
-	/**
-	 * Test method for {@link dataManagement.DataControl#updateAlgorithm()}.
-	 * updateAlgorithm() is not yet implemented in the DataControl.java program
-	 */
-	@Test
-	public void testUpdateAlgorithm() {
+		// print the Algorithm
+		FileAlgorithmData testFileAlgorithm = new FileAlgorithmData();
+		testFileAlgorithm.printAlgorithm();
 	}
 	
 	@After
