@@ -63,7 +63,7 @@ public class AttractionDataTester {
 	public void testGetAttractionList() {
 
 		assertTrue("Checking that we receive the correct type", testAttractionData.getAttractionList() instanceof ArrayList<?>);
-		assertEquals("Checking that we have the correct number of attractions in the list", 20,  testAttractionData.getAttractionList().size());
+		assertEquals("Checking that we have the correct number of attractions in the list", 13,  testAttractionData.getAttractionList().size());
 
 	}
 	
@@ -193,8 +193,8 @@ public class AttractionDataTester {
 		testAttractionData.printAllAttractions();
 
 		testAttractionList = testAttractionData.getAttractionList();
-		assertEquals("Checking that we have increased the number of attractions", 4, testAttractionList.size());		
-		assertEquals("Checking that the Orsay Musee attraction is in the list", "Musee D'Orsay", testAttractionList.get(3).getName());
+		assertEquals("Checking that we have increased the number of attractions", 13, testAttractionList.size());		
+		assertEquals("Checking that the Orsay Musee attraction is in the list", "Musee D'Orsay", testAttractionList.get(11).getName());
 	}
 	
 	/**
@@ -209,7 +209,7 @@ public class AttractionDataTester {
 		testAttractionData.updateAttractionList(attractionInvalid);
 		
 		testAttractionList = testAttractionData.getAttractionList();
-		assertEquals("Checking that we have not increased the number of attractions", 4, testAttractionList.size());
+		assertEquals("Checking that we have not increased the number of attractions", 13, testAttractionList.size());
 		
 	}
 	
