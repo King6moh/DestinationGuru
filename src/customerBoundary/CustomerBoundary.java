@@ -222,7 +222,9 @@ class HotOrNotPanel extends JPanel implements ActionListener {
 
 	public void updatePicture(String name){
 		attractionPanel.setBorder(new TitledBorder(BorderFactory.createLineBorder(Color.black), name));
-		attractionPanel.add(new SingleGraphicsPanel("dummyAttractionPic", 560, 300));
+		attractionPanel.removeAll();
+		attractionPanel.add(new SingleGraphicsPanel(name, 560, 300));
+		revalidate();
 	}
 
 	@Override

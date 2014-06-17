@@ -7,6 +7,8 @@ import java.util.Hashtable;
 import java.util.Iterator;
 import java.util.Random;
 
+import com.sun.jmx.snmp.Enumerated;
+
 import customerBoundary.CustomerBoundary;
 import dataManagement.AlgorithmParameters;
 import dataManagement.Attraction;
@@ -18,7 +20,7 @@ public class RecommendationControl {
 	private DataControl dataManagement;
 	private CustomerBoundary client;
 
-	private Enumeration<String> tagList;
+	private String[] tagList = {"architecture", "bridge", "church", "club", "garden", "island", "monument", "museum", "park", "shopping"};
 	private ArrayList<String> tags;
 	private int tagCount;
 	private int hnCounter, hhCounter;
@@ -39,7 +41,7 @@ public class RecommendationControl {
 		hhCounter = 0;
 		tagCount = 0;
 		algorithmParam = dataManagement.getAlgorithm();
-		tagList = recommendation.getTags();
+		//tagList = new Enumeration<String>();
 		tags = new ArrayList<String>();
 		currentTag = new String();
 
@@ -52,8 +54,7 @@ public class RecommendationControl {
 
 	public String askHotOrNot(){
 		if(hnCounter < algorithmParam.numHN){
-			hnCounter++;
-			return tagList.nextElement();
+			return tagList[hnCounter++];
 		} else {
 			return "DONE";
 		}
