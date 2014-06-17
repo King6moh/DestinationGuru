@@ -12,6 +12,7 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashSet;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
@@ -141,7 +142,7 @@ class GUI extends JFrame implements KeyListener, ActionListener { // KeyListener
 		JLabel recommendationsLabel = new JLabel("Recommendations:");
 		recommendationsPanel.add(recommendationsLabel);
 
-		ArrayList<Attraction> finalRecoms = recomControl.updateRecomEntity();
+		HashSet<Attraction> finalRecoms = recomControl.updateRecomEntity();
 		for (Attraction att: finalRecoms){
 			recommendationsPanel.add(new JLabel("<html><br>--" + att.getName() + "</html>"));
 		}

@@ -3,6 +3,7 @@ package recommender;
 
 import java.util.ArrayList;
 import java.util.Enumeration;
+import java.util.HashSet;
 import java.util.Hashtable;
 import java.util.Iterator;
 import java.util.Random;
@@ -127,7 +128,7 @@ public class RecommendationControl {
 		}
 	}
 	
-	public ArrayList<Attraction> updateRecomEntity(){
+	public HashSet<Attraction> updateRecomEntity(){
 		recommendation.desiredTagsSet(tags);
 		return recommendation.getFinalRecoms();
 	}

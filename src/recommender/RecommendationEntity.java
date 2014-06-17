@@ -10,9 +10,10 @@ import dataManagement.Attraction;
 
 public class RecommendationEntity {
 
-	private ArrayList<Attraction> recommendations, finalRecoms;	
+	private ArrayList<Attraction> recommendations;	
 	private Hashtable<String, ArrayList<Attraction>> list;
 	private HashSet<String> desiredTags;
+	private HashSet<Attraction> finalRecoms;
 	private int sensitivity;
 	
 	/***
@@ -26,7 +27,7 @@ public class RecommendationEntity {
 	
 	public RecommendationEntity(int sensitivity, Hashtable<String, ArrayList<Attraction>> table) {
 		recommendations = new ArrayList<Attraction>();
-		finalRecoms = new ArrayList<Attraction>();
+		finalRecoms = new HashSet<Attraction>();
 		list = table;
 		this.sensitivity = sensitivity;
 	}
@@ -77,7 +78,7 @@ public class RecommendationEntity {
 		}
 	}
 	
-	public ArrayList<Attraction> getFinalRecoms(){
+	public HashSet<Attraction> getFinalRecoms(){
 		return finalRecoms;
 	}
 	
