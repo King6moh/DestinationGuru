@@ -1,11 +1,12 @@
 package recommender;
 
-import Client.ClientBoundary;
 
 import java.util.ArrayList;
 import java.util.Enumeration;
 
 import com.sun.security.ntlm.Client;
+
+import customerBoundary.CustomerBoundary;
 
 import dataManagement.Attraction;
 import dataManagement.AttractionList;
@@ -14,7 +15,7 @@ public class RecommendationControl {
 
 	private RecommendationEntity recommendation;
 	private AttractionList attractionList;
-	private ClientBoundary client;
+	private CustomerBoundary client;
 
 	private int hnCounter, hhCounter;
 
@@ -41,7 +42,7 @@ public class RecommendationControl {
 	 * RecommendationControl constructor
 	 */
 
-	public RecommendationControl(ClientBoundary client) {
+	public RecommendationControl(CustomerBoundary client) {
 
 		recommendation = new RecommendationEntity();
 		attractionList = new AttractionList();

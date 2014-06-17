@@ -1,4 +1,4 @@
-package Client;
+package customerBoundary;
 /**
  * Class Client
  */
@@ -19,12 +19,12 @@ import javax.swing.border.TitledBorder;
 import dataManagement.Attraction;
 import recommender.RecommendationControl;
 
-public class ClientBoundary {
+public class CustomerBoundary {
 
 	private GUI gui;
 	private RecommendationControl recomControl;
 
-	public ClientBoundary(){
+	public CustomerBoundary(){
 		recomControl = new RecommendationControl(this);
 		gui = new GUI(recomControl);
 	}
@@ -45,7 +45,7 @@ public class ClientBoundary {
 	 * Main method used to run the client.
 	 */
 	public static void main(String args[]) throws Exception {
-		ClientBoundary clientBoundary = new ClientBoundary();
+		CustomerBoundary customerBoundary = new CustomerBoundary();
 	}
 }
 
