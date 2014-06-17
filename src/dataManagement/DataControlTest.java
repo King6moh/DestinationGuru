@@ -67,10 +67,11 @@ public class DataControlTest {
 	 */
 	@Test
 	public void testGetAlgorithm() {
+		int originalSensitivity = testDataControl.getAlgorithm();
 		testDataControl.updateAlgorithm(3);
 		assertTrue("Check that we return the sensitivity 3", testDataControl.getAlgorithm() == 3);
 		// change back to the original algorithm
-		testDataControl.updateAlgorithm(2);
+		testDataControl.updateAlgorithm(originalSensitivity);
 	}
 
 	/**
