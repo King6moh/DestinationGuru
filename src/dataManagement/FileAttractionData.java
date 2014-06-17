@@ -21,7 +21,6 @@ public class FileAttractionData extends ErrorLog {
 	private FileIO file;
 	private ArrayList<Attraction> attractionList;	
 	private Hashtable<String, ArrayList<Attraction>> tagTable;
-	private final String BASE_PATTERN = "<(\\w+)><([a-zA-Z0-9'&\\.\\s]+)>";
 	
 	public FileAttractionData()
 	{
@@ -51,7 +50,7 @@ public class FileAttractionData extends ErrorLog {
 		Attraction attraction = null;
 		ArrayList<String> fileList = null;
 		fileList = file.getLines();
-		Pattern basicPattern = Pattern.compile(BASE_PATTERN);
+		Pattern basicPattern = Pattern.compile("<(\\w+)><([a-zA-Z0-9'&\\.\\s]+)>");
 		for (String line: fileList)
 		{
 			Matcher matcher = basicPattern.matcher(line);
@@ -133,7 +132,7 @@ public class FileAttractionData extends ErrorLog {
 	 */
 	public void updateAttractionList(Attraction attraction)
 	{
-		Pattern basicPattern = Pattern.compile(BASE_PATTERN);
+		Pattern basicPattern = Pattern.compile("[a-zA-Z0-9'&\\.\\s]+");
 		Matcher matcher = basicPattern.matcher(attraction.getName());
 		if (!matcher.find())
 		{
