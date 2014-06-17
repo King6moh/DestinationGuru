@@ -40,6 +40,12 @@ public class FileAttractionData extends ErrorLog {
 	 */
 	private void getFileData()
 	{
+		//reset attractionList
+		ArrayList<Attraction> newList = new ArrayList<Attraction>();
+		attractionList = newList;
+		//reset tagTable
+		Hashtable<String, ArrayList<Attraction>> newHash = new Hashtable<String, ArrayList<Attraction>>();
+		tagTable = newHash;
 		Attraction attraction = null;
 		ArrayList<String> fileList = null;
 		fileList = file.getLines();
