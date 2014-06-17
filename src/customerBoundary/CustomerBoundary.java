@@ -19,9 +19,7 @@ import javax.swing.border.TitledBorder;
 import dataManagement.Attraction;
 import recommender.RecommendationControl;
 
-import ErrorLog.ErrorLog;
-
-public class CustomerBoundary extends ErrorLog {
+public class CustomerBoundary {
 
 	private GUI gui;
 	private RecommendationControl recomControl;
@@ -30,8 +28,6 @@ public class CustomerBoundary extends ErrorLog {
 		super();
 		recomControl = new RecommendationControl(this);
 		gui = new GUI(recomControl);
-
-		logger.info("adding to error log");
 	}
 
 	public boolean askHotOrNot(String tag) {
@@ -221,6 +217,7 @@ class HotOrNotPanel extends JPanel implements ActionListener {
 
 	public void updatePicture(String name){
 		attractionPanel.setBorder(new TitledBorder(BorderFactory.createLineBorder(Color.black), name));
+		attractionPanel.add(new SingleGraphicsPanel("dummyAttractionPic", 560, 300));
 	}
 
 	@Override
@@ -282,7 +279,7 @@ class HeadToHeadPanel extends JPanel implements ActionListener {
 
 		attractionPanel = new JPanel();
 		attractionPanel.setPreferredSize(new Dimension(560, 275));
-		attractionPanel.setBorder(new TitledBorder(BorderFactory.createLineBorder(Color.black), "Attraction Picture"));
+		//attractionPanel.setBorder(new TitledBorder(BorderFactory.createLineBorder(Color.black), "Attraction Picture"));
 
 		leftLabel = new JLabel();
 		rightLabel = new JLabel();
@@ -316,15 +313,25 @@ class HeadToHeadPanel extends JPanel implements ActionListener {
 	}
 
 	public void updatePictures(Attraction[] name){
-		if (name[0] != null) {
-		leftLabel.setText(name[0].getName());
-		rightLabel.setText(name[1].getName());
+		attractionPanel.setBorder(new TitledBorder(BorderFactory.createLineBorder(Color.black), recomControl.getCurrentTag()));
+		
+		if (name[0] != null){
+			leftLabel.setText(name[0].getName());
+		} else if (name[0] == null){
+			leftLabel.setText("NO picture found");
+		}
+		
+		if (name[1] != null){
+			rightLabel.setText(name[1].getName());
+		} else if (name[1] == null){
+			rightLabel.setText("No picture found");
 		}
 	}
 
 	@Override
 	public void actionPerformed(ActionEvent ae) {		
 		attractions = recomControl.askHeadToHead();
+		//System.out.println(attractions[0] + "\t" + attractions[1]);
 		updatePictures(attractions);
 
 		if(ae != null){
@@ -346,9 +353,31 @@ class HeadToHeadPanel extends JPanel implements ActionListener {
 	public String[] getAttractionNames(){
 		return attractionNames;
 	}
-	
+
 	public Attraction[] getAttraction() {
 		return attractions;
+	}
+}
+
+class SingleGraphicsPanel extends JPanel {
+	private BufferedImage image;
+
+	public SingleGraphicsPanel(String fname, int width, int height){
+		try {                
+			image = ImageIO.read(new File(fname + ".jpg"));
+		} catch (IOException ex) {
+			System.out.println("Couldnt load " + fname + ".jpg file");
+		}
+		setPreferredSize(new Dimension(width, height));
+	}
+
+	@Override
+	protected void paintComponent(Graphics g) {
+		super.paintComponent(g);
+		Graphics2D g2d = (Graphics2D) g;
+		int x = (this.getWidth() - image.getWidth(null)) / 2;
+		int y = (this.getHeight() - image.getHeight(null)) / 2;
+		g2d.drawImage(image, x, y, null);            
 	}
 }
 
