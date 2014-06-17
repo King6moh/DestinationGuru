@@ -1,7 +1,7 @@
 /**
  * 
  */
-package Client;
+package customerBoundary;
 
 import static org.junit.Assert.*;
 
@@ -12,7 +12,7 @@ import org.junit.Test;
  * @author Moh
  *
  */
-public class ClientBoundaryTester {
+public class CustomerBoundaryTester {
 
 	/**
 	 * @throws java.lang.Exception
