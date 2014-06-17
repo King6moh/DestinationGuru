@@ -7,6 +7,7 @@ import java.util.Hashtable;
 import java.util.Iterator;
 
 import customerBoundary.CustomerBoundary;
+import dataManagement.AlgorithmParameters;
 import dataManagement.Attraction;
 import dataManagement.DataControl;
 
@@ -20,11 +21,9 @@ public class RecommendationControl {
 	private ArrayList<String> tags;
 	private int tagCount;
 	private int hnCounter, hhCounter;
+	private AlgorithmParameters algorithmParam;
 	
 	private String currentTag;
-
-	public static final int NUM_HOT_OR_NOT = 10;
-	public static final int NUM_HEAD_TO_HEAD = 10;
 
 	/***
 	 * RecommendationControl constructor
@@ -38,6 +37,7 @@ public class RecommendationControl {
 		hnCounter = 0; 
 		hhCounter = 0;
 		tagCount = 0;
+		algorithmParam = dataManagement.getAlgorithm();
 		tagList = recommendation.getTags();
 		tags = new ArrayList<String>();
 		currentTag = new String();
@@ -50,7 +50,7 @@ public class RecommendationControl {
 	}
 
 	public String askHotOrNot(){
-		if(hnCounter < NUM_HOT_OR_NOT){
+		if(hnCounter < algorithmParam.numHN){
 			hnCounter++;
 			return tagList.nextElement();
 		} else {
@@ -68,7 +68,7 @@ public class RecommendationControl {
 		if(tagCount < tags.size()){
 			currentTag = tags.get(tagCount++);
 			System.out.println(currentTag);
-			if((hhCounter < NUM_HEAD_TO_HEAD) && !currentTag.equals("DONE")){
+			if((hhCounter < algorithmParam.numHH) && !currentTag.equals("DONE")){
 				hhCounter++;
 				Iterator<Attraction> iter = recommendation.getList().get(currentTag).iterator();
 				
