@@ -63,7 +63,7 @@ public class FileAttractionDataTester {
 	public void testGetAttractionList() {
 
 		assertTrue("Checking that we receive the correct type", testAttractionData.getAttractionList() instanceof ArrayList<?>);
-		assertEquals("Checking that we have the correct number of attractions in the list", 3,  testAttractionData.getAttractionList().size());
+		assertEquals("Checking that we have the correct number of attractions in the list", 4,  testAttractionData.getAttractionList().size());
 
 	}
 	
