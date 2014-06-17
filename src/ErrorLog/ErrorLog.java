@@ -27,7 +27,19 @@ public abstract class ErrorLog {
 			fileTxt = new FileHandler("ErrorLog.txt", true); // Second parameter true for append
 		} catch (Exception e) {
 			System.out.println("Couldn't create the logging file");
+		} 
+		// this will close the file if we are no longer using preventing issues with multiple files created
+		finally {
+		//  lastly close anything that may be open
+		if (fileTxt != null){
+			try {
+				fileTxt.close();
+			} catch (Exception ex){
+				// error closing   
+			}
 		}
+	}
+
 
 		// create txt Formatter
 		formatterTxt = new SimpleFormatter();

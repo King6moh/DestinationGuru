@@ -13,7 +13,7 @@ import ErrorLog.ErrorLog;
 
 /**
  * @author Mohammed Ahmed-Muhsin
- * @version 1.0 
+ * @version 2.0 
  * @date 2014-06-16
  * 
  * The following class will test the functionality of the FileAttractionData class
@@ -49,13 +49,14 @@ public class FileAttractionDataTester {
 
 	/**
 	 * Test method for {@link dataManagement.FileAttractionData#getAttractionList()}.
-	 * Checks to see if we receive an attraction list and of the expected size
+	 * Checks to see if we receive an attraction list and the size
 	 */
 	@Test
 	public void testGetAttractionList() {
 
 		assertTrue("Checking that we receive the correct type", testAttractionData.getAttractionList() instanceof ArrayList<?>);
 		assertEquals("Checking that we have the correct number of attractions in the list", 3,  testAttractionData.getAttractionList().size());
+
 	}
 	
 	/**

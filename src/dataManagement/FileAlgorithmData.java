@@ -60,15 +60,5 @@ public class FileAlgorithmData extends ErrorLog {
 		update.add("<sensitivity><" + String.valueOf(sensitivity) + ">");
 		file.write(update);
 	}
-	
-	public static void main(String[] args) {
-		//test
-		
-		FileAlgorithmData testData = new FileAlgorithmData();
-		testData.updateAlgorithm(2);
-		System.out.println("Sensitivity is: " + testData.getSensitivity());
-		
-
-	}
 
 }

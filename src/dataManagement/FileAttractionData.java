@@ -202,19 +202,5 @@ public class FileAttractionData extends ErrorLog {
 		return tagTable;
 	}
 	
-	//for testing
-	public static void main(String[] args) {
-		FileAttractionData attractionData = new FileAttractionData();
-		attractionData.getFileData();
-		attractionData.printAllAttractions();
-		Location loc = new Location("France", "Paris", "unknown", 12, 1111.9999, 9999.1111);
-		ArrayList<String> tags = new ArrayList<String>();
-		tags.add("free");
-		tags.add("new");
-		tags.add("modern art");
-		tags.add("architecture");
-		Attraction att = new Attraction(loc, "Pompidou", tags);
-		attractionData.updateAttractionList(att);
-	}
 
 }

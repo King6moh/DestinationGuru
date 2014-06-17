@@ -69,6 +69,8 @@ public class DataControlTest {
 	public void testGetAlgorithm() {
 		testDataControl.updateAlgorithm(3);
 		assertTrue("Check that we return the sensitivity 3", testDataControl.getAlgorithm() == 3);
+		// change back to the original algorithm
+		testDataControl.updateAlgorithm(2);
 	}
 
 	/**
