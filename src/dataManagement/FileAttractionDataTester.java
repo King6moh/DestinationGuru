@@ -180,7 +180,7 @@ public class FileAttractionDataTester {
 	}
 	
 	/**
-	 * Test method for {@link dataManagement.FileAttractionData#getAttractionList()}.
+	 * Test method for {@link dataManagement.FileAttractionData#updateAttractionList()}.
 	 * Checks to see if we have the proper amount of tags for both attractions
 	 */
 	@Test
@@ -203,6 +203,22 @@ public class FileAttractionDataTester {
 		testAttractionList = testAttractionData.getAttractionList();
 		assertEquals("Checking that we have increased the number of attractions", 4, testAttractionList.size());		
 		assertEquals("Checking that the Orsay Musee attraction is in the list", "Musee D'Orsay", testAttractionList.get(3).getName());
+	}
+	
+	/**
+	 * Test method for {@link dataManagement.FileAttractionData#updateAttractionList()}.
+	 * Checks to add an invalid attraction name and ensures that the size stayed the same
+	 */
+	@Test
+	public void testInvalidUpdateAttraction() {
+		ArrayList<Attraction> testAttractionList;
+		
+		Attraction attractionInvalid = new Attraction("Invalid Name//#$");
+		testAttractionData.updateAttractionList(attractionInvalid);
+		
+		testAttractionList = testAttractionData.getAttractionList();
+		assertEquals("Checking that we have not increased the number of attractions", 4, testAttractionList.size());
+		
 	}
 
 }
