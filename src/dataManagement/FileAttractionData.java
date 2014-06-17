@@ -50,7 +50,7 @@ public class FileAttractionData extends ErrorLog {
 		Attraction attraction = null;
 		ArrayList<String> fileList = null;
 		fileList = file.getLines();
-		Pattern basicPattern = Pattern.compile("<(\\w+)><([a-zA-Z0-9'\\.\\s]+)>");
+		Pattern basicPattern = Pattern.compile("<(\\w+)><([a-zA-Z0-9'&\\.\\s]+)>");
 		for (String line: fileList)
 		{
 			Matcher matcher = basicPattern.matcher(line);
