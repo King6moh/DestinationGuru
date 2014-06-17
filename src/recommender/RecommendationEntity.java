@@ -22,6 +22,7 @@ public class RecommendationEntity {
 	} // end constructor
 	
 	public RecommendationEntity(Hashtable<String, ArrayList<Attraction>> table) {
+		recommendations = new ArrayList<Attraction>();
 		list = table;
 	}
 	
