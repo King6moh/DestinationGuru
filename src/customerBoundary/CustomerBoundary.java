@@ -143,9 +143,20 @@ class GUI extends JFrame implements KeyListener, ActionListener { // KeyListener
 		recommendationsPanel.add(recommendationsLabel);
 
 		HashSet<Attraction> finalRecoms = recomControl.updateRecomEntity();
+		double avLat, avLong;
+		avLat = 0;
+		avLong = 0;
 		for (Attraction att: finalRecoms){
 			recommendationsPanel.add(new JLabel("<html><br>--" + att.getName() + "</html>"));
+			avLat += att.getLocation().getLatitude();
+			avLong += att.getLocation().getLongitude();
 		}
+		
+		avLat /= finalRecoms.size();
+		avLong /= finalRecoms.size();
+		
+		recommendationsPanel.add(new JLabel("<html><br> --> Average latitude: " + String.valueOf(avLat) + "</html>"));
+		recommendationsPanel.add(new JLabel("<html><br> --> Average longitude: " + String.valueOf(avLong) + "</html>"));
 
 		this.getContentPane().add(dgPanel, BorderLayout.NORTH);
 		this.getContentPane().add(recommendationsPanel, BorderLayout.CENTER);
