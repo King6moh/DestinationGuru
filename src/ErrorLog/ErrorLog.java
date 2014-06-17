@@ -23,18 +23,29 @@ public abstract class ErrorLog {
 		logger = Logger.getLogger(Logger.GLOBAL_LOGGER_NAME);
 
 		logger.setLevel(Level.INFO);
+
+		logger.setUseParentHandlers(false);
+	}
+	
+	public void open(){
 		try {
-			fileTxt = new FileHandler("ErrorLog.txt"); // Second parameter true for append
+			fileTxt = new FileHandler("ErrorLog.txt", true); // Second parameter true for append
+			// create txt Formatter
+			formatterTxt = new SimpleFormatter();
+			fileTxt.setFormatter(formatterTxt);
+			logger.addHandler(fileTxt);
+
 		} catch (Exception e) {
 			System.out.println("Couldn't create the logging file");
 		} 
-
-		// create txt Formatter
-		formatterTxt = new SimpleFormatter();
-		fileTxt.setFormatter(formatterTxt);
-		logger.addHandler(fileTxt);
-
-		logger.setUseParentHandlers(false);
+	}
+	
+	public void close(){
+		try {
+			fileTxt.close();
+		} catch (Exception e) {
+			System.out.println("Couldn't close the logging file");
+		} 
 	}
 	
 	/**
