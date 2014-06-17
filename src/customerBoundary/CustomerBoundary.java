@@ -103,12 +103,13 @@ class GUI extends JFrame implements KeyListener, ActionListener { // KeyListener
 		} 
 
 		this.getContentPane().remove(mainPanel);
-		this.getContentPane().remove(dgPanel);
+		this.getContentPane().remove(titlePanel);
 
 		// Hot or Not
 		setTitle("TRAVELABULOUS Hot-Or-Not");
 		HotOrNotPanel hotOrNotPanel = new HotOrNotPanel(recomControl, attractionName);
-		this.getContentPane().add(titlePanel, BorderLayout.NORTH);
+		//this.getContentPane().add(titlePanel, BorderLayout.NORTH);
+		this.getContentPane().add(dgPanel, BorderLayout.NORTH);
 		this.getContentPane().add(hotOrNotPanel, BorderLayout.CENTER);
 		revalidate();
 
@@ -122,7 +123,8 @@ class GUI extends JFrame implements KeyListener, ActionListener { // KeyListener
 		setTitle("TRAVELABULOUS Head-To-Head");
 
 		HeadToHeadPanel headToHeadPanel = new HeadToHeadPanel(recomControl);
-		this.getContentPane().add(titlePanel, BorderLayout.NORTH);
+		//this.getContentPane().add(titlePanel, BorderLayout.NORTH);
+		this.getContentPane().add(dgPanel, BorderLayout.NORTH);
 		this.getContentPane().add(headToHeadPanel, BorderLayout.CENTER);	
 		revalidate();
 

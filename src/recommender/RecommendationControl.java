@@ -20,7 +20,7 @@ public class RecommendationControl {
 	private DataControl dataManagement;
 	private CustomerBoundary client;
 
-	private String[] tagList = {"architecture", "bridge", "church", "club", "garden", "island", "monument", "museum", "park", "shopping"};
+	private String[] tagList = {"architecture", "bridge", "church", "nightlife", "garden", "island", "monument", "museum", "park", "shopping"};
 	private ArrayList<String> tags;
 	private int tagCount;
 	private int hnCounter, hhCounter;
