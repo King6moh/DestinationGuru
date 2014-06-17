@@ -21,7 +21,7 @@ import ErrorLog.ErrorLog;
  * This includes the name, location, and the tags of each attraction
  *
  */
-public class FileAttractionDataTester {
+public class AttractionDataTester {
 
 	private FileAttractionData testAttractionData;
 	
@@ -63,7 +63,7 @@ public class FileAttractionDataTester {
 	public void testGetAttractionList() {
 
 		assertTrue("Checking that we receive the correct type", testAttractionData.getAttractionList() instanceof ArrayList<?>);
-		assertEquals("Checking that we have the correct number of attractions in the list", 4,  testAttractionData.getAttractionList().size());
+		assertEquals("Checking that we have the correct number of attractions in the list", 13,  testAttractionData.getAttractionList().size());
 
 	}
 	
@@ -77,8 +77,7 @@ public class FileAttractionDataTester {
 		// save the list as a variable to start parsing 
 		ArrayList<Attraction> testAttractionList = new ArrayList<Attraction>();
 		testAttractionList = testAttractionData.getAttractionList();
-		assertEquals("Checking that the Eiffel Tower attraction is in the list", "Eiffel Tower", testAttractionList.get(0).getName());
-		assertEquals("Checking that the The Louvre  attraction is in the list", "The Louvre", testAttractionList.get(1).getName());
+		assertEquals("Checking that the Eiffel Tower attraction is in the list", "Tour Eiffel", testAttractionList.get(0).getName());
 	}
 	
 	/**
@@ -92,7 +91,6 @@ public class FileAttractionDataTester {
 		ArrayList<Attraction> testAttractionList = new ArrayList<Attraction>();
 		testAttractionList = testAttractionData.getAttractionList();
 		assertEquals("Checking that the correct country for the first attraction is in the list", "France", testAttractionList.get(0).getLocation().getCountry());
-		assertEquals("Checking that the correct country for the second attraction is in the list", "France", testAttractionList.get(1).getLocation().getCountry());
 	}
 	
 	/**
@@ -106,7 +104,6 @@ public class FileAttractionDataTester {
 		ArrayList<Attraction> testAttractionList = new ArrayList<Attraction>();
 		testAttractionList = testAttractionData.getAttractionList();
 		assertEquals("Checking that the correct country for the first attraction is in the list", "Paris", testAttractionList.get(0).getLocation().getCity());
-		assertEquals("Checking that the correct country for the second attraction is in the list", "Paris", testAttractionList.get(1).getLocation().getCity());
 	}
 	
 	/**
@@ -119,8 +116,7 @@ public class FileAttractionDataTester {
 		// save the list as a variable to start parsing 
 		ArrayList<Attraction> testAttractionList = new ArrayList<Attraction>();
 		testAttractionList = testAttractionData.getAttractionList();
-		assertEquals("Checking that the correct street for the first attraction is in the list", "Champ de Mars", testAttractionList.get(0).getLocation().getStreet());
-		assertEquals("Checking that the correct street for the second attraction is in the list", "Champ de Mars", testAttractionList.get(1).getLocation().getStreet());
+		assertEquals("Checking that the correct street for the first attraction is in the list", "Avenue Anatole France", testAttractionList.get(0).getLocation().getStreet());
 	}
 	
 	/**
@@ -134,7 +130,6 @@ public class FileAttractionDataTester {
 		ArrayList<Attraction> testAttractionList = new ArrayList<Attraction>();
 		testAttractionList = testAttractionData.getAttractionList();
 		assertEquals("Checking that the correct address number for the first attraction is in the list", 5, testAttractionList.get(0).getLocation().getAddressNum());
-		assertEquals("Checking that the correct address number for the second attraction is in the list", 12, testAttractionList.get(1).getLocation().getAddressNum());
 	}
 	
 	/**
@@ -147,8 +142,7 @@ public class FileAttractionDataTester {
 		// save the list as a variable to start parsing 
 		ArrayList<Attraction> testAttractionList = new ArrayList<Attraction>();
 		testAttractionList = testAttractionData.getAttractionList();
-		assertEquals("Checking that the correct latitude for the first attraction is in the list", 4851296, testAttractionList.get(0).getLocation().getLatitude(), 3);
-		assertEquals("Checking that the correct latitude for the second attraction is in the list", 1111.9999, testAttractionList.get(1).getLocation().getLatitude(), 3);
+		assertEquals("Checking that the correct latitude for the first attraction is in the list", 48.858539, testAttractionList.get(0).getLocation().getLatitude(), 3);
 	}
 
 	/**
@@ -161,8 +155,7 @@ public class FileAttractionDataTester {
 		// save the list as a variable to start parsing 
 		ArrayList<Attraction> testAttractionList = new ArrayList<Attraction>();
 		testAttractionList = testAttractionData.getAttractionList();
-		assertEquals("Checking that the correct longitude for the first attraction is in the list", 217402, testAttractionList.get(0).getLocation().getLongitude(), 4);
-		assertEquals("Checking that the correct longitude for the second attraction is in the list", 9999.1111, testAttractionList.get(1).getLocation().getLongitude(), 4);
+		assertEquals("Checking that the correct longitude for the first attraction is in the list", 2.294508, testAttractionList.get(0).getLocation().getLongitude(), 4);
 	}
 
 	/**
@@ -176,7 +169,6 @@ public class FileAttractionDataTester {
 		ArrayList<Attraction> testAttractionList = new ArrayList<Attraction>();
 		testAttractionList = testAttractionData.getAttractionList();
 		assertEquals("Checking for correct number of tags for first attraction",  7, testAttractionList.get(0).getTags().size());
-		assertEquals("Checking for correct number of tags for second attraction", 8, testAttractionList.get(1).getTags().size());
 	}
 	
 	/**
@@ -187,7 +179,7 @@ public class FileAttractionDataTester {
 	public void testUpdateAttraction() {
 		ArrayList<Attraction> testAttractionList;
 		// create the location for our new attraction
-		Location locationOrsay = new Location("France", "Paris", "Rue de la Legion d'Honneur", 1, 4886013.4, 2326540.0);
+		Location locationOrsay = new Location("France", "Paris", "Rue de la Legion d'Honneur", 1, 48.860159, 2.326561);
 		
 		// create the list of tags for the attraction
 		ArrayList<String> tagsOrsay = new ArrayList<String>();
@@ -201,8 +193,8 @@ public class FileAttractionDataTester {
 		testAttractionData.printAllAttractions();
 
 		testAttractionList = testAttractionData.getAttractionList();
-		assertEquals("Checking that we have increased the number of attractions", 4, testAttractionList.size());		
-		assertEquals("Checking that the Orsay Musee attraction is in the list", "Musee D'Orsay", testAttractionList.get(3).getName());
+		assertEquals("Checking that we have increased the number of attractions", 13, testAttractionList.size());		
+		assertEquals("Checking that the Orsay Musee attraction is in the list", "Musee D'Orsay", testAttractionList.get(11).getName());
 	}
 	
 	/**
@@ -217,8 +209,26 @@ public class FileAttractionDataTester {
 		testAttractionData.updateAttractionList(attractionInvalid);
 		
 		testAttractionList = testAttractionData.getAttractionList();
-		assertEquals("Checking that we have not increased the number of attractions", 4, testAttractionList.size());
+		assertEquals("Checking that we have not increased the number of attractions", 13, testAttractionList.size());
 		
 	}
+	
+	/**
+	 * Test method for {@link dataManagement.Attraction#incMatchedTags()}.
+	 * Ensures that we clear the number of matched tags and that we increment it correctly
+	 * This simulates our recommendation entity incrementing the popularity of that attraction and making it to the list
+	 */
+	@Test
+	public void testMatchedTags() {
+		ArrayList<Attraction> testAttractionList = testAttractionData.getAttractionList();
+		
+		Attraction attractionTest = testAttractionList.get(0);
+		
+		// this should set it to 0
+		attractionTest.clearMatchedTags();
+		assertEquals("Checking that we increment to a correct value", 1, attractionTest.incMatchedTags());
+		
+	}
+	
 
 }
