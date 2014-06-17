@@ -29,7 +29,7 @@ public class DataControlTest {
 	 * This method will be called before every test to make sure we are working with a fresh DataControl object 
 	 * at each instance of the test
 	 */
-	public void setUP() {
+	public void setUp() {
 		testDataControl = new DataControl();
 		
 	}

@@ -12,7 +12,7 @@ import org.junit.Test;
  * @author Moh
  *
  */
-public class ClienBoundaryTester {
+public class ClientBoundaryTester {
 
 	/**
 	 * @throws java.lang.Exception
