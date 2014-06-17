@@ -30,24 +30,22 @@
 <tag><architecture>
 
 <name><Pompidou>
-<country><France>
-<city><Paris>
-<street><unknown>
-<addressNumber><12>
-<latitude><1111.9999>
-<longitude><9999.1111>
+<country><null>
+<city><null>
+<street><null>
+<addressNumber><0>
+<latitude><0.0>
+<longitude><0.0>
 <tag><free>
 <tag><new>
 <tag><modern art>
 <tag><architecture>
 
 <name><Musee D'Orsay>
-<country><France>
-<city><Paris>
-<street><Rue de la Legion d'Honneur>
-<addressNumber><1>
-<latitude><4886013.4>
-<longitude><2326540.0>
-<tag><museum>
-<tag><art>
+<country><null>
+<city><null>
+<street><null>
+<addressNumber><0>
+<latitude><0.0>
+<longitude><0.0>
 

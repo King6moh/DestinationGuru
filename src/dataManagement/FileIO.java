@@ -122,29 +122,4 @@ public class FileIO extends ErrorLog {
 		closeBufferedWriter();
 		
 	}
-	
-	public static void main(String[] args) {
-		//test the reading capabilities
-		/*
-		FileIO testIO = new FileIO("testRead.txt");
-		ArrayList<String> lineArray = new ArrayList<String>();
-		lineArray = testIO.getLines();
-		for (String s : lineArray)
-		{
-			System.out.println(s);
-		}
-		*/
-		
-		//test the writing capabilities
-		/*
-		FileIO testIO = new FileIO("TestWrite.txt");
-		ArrayList<String> lines = new ArrayList<String>();
-		lines.add("this");
-		lines.add("test");
-		lines.add("is");
-		lines.add("working");
-		testIO.write(lines);
-		*/
-	}
-
 }
