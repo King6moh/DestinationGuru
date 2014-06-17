@@ -26,31 +26,6 @@ public class RecommendationEntity {
 		list = table;
 	}
 	
-	public void compileGeneralRecommendations(ArrayList<String> tags) {
-		
-		for (int i = 0; i < tags.size(); i++) {
-			list.remove(tags.get(i));
-		} //end for loop
-		
-		Enumeration<ArrayList<Attraction>> tempEnum = list.elements();
-		ArrayList<Attraction> tempList;
-		
-		recommendations.clear();
-		
-		while(tempEnum.hasMoreElements()) {
-			
-			tempList = tempEnum.nextElement();
-			
-			while(tempList.iterator().hasNext()) {
-				
-				recommendations.add(tempList.iterator().next());
-				
-			} //end while
-			
-		} //end while
-		
-	} //end compileGeneralRecommendations(tags)
-	
 	public void compileRecommendations() {
 		
 	} //end compileRecommendations(tags)
@@ -61,15 +36,25 @@ public class RecommendationEntity {
 		
 	} //end getTags()
 	
+	public Hashtable<String, ArrayList<Attraction>> getList() {
+		return list;
+	}
+	
 	public ArrayList<Attraction> getAttractions() {
 		
 		return recommendations;
 		
 	} //end getAttractions()
 	
+	public void addAttraction(Attraction attr) {
+		recommendations.add(attr);
+	}
+	
 	public void incMatchedTags(String tag) {
-		for (Attraction attr : list.get(tag)) {
-			attr.incMatchedTags();
+		if (list.containsKey(tag)) {
+			for (Attraction attr : list.get(tag)) {
+				attr.incMatchedTags();
+			}
 		}
 	}
 	
