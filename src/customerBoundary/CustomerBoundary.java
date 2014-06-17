@@ -130,7 +130,7 @@ class GUI extends JFrame implements KeyListener, ActionListener { // KeyListener
 		this.getContentPane().add(headToHeadPanel, BorderLayout.CENTER);	
 		revalidate();
 
-		while(!headToHeadPanel.getAttractionNames()[0].equals("DONE")){ 
+		while(headToHeadPanel.getAttraction()[0] != (null)){ 
 			repaint();
 		}
 
@@ -231,9 +231,6 @@ class HotOrNotPanel extends JPanel implements ActionListener {
 			if (ae.getActionCommand() == "HOT!"){
 				recomControl.hot(attractionName);
 			} // otherwise ae.getActionCommand() == "not" --> discard tag
-			else if (ae.getActionCommand() == "Not"){
-				recomControl.not(attractionName);
-			}
 		}
 	}
 
@@ -248,6 +245,7 @@ class HeadToHeadPanel extends JPanel implements ActionListener {
 	private JButton left, right, both;
 	private JPanel attractionPanel;
 	private JLabel leftLabel, rightLabel;
+	private Attraction[] attractions;
 	private String[] attractionNames;
 	private RecommendationControl recomControl;
 	Font font = new Font("Times New Roman", Font.BOLD, 16);
@@ -257,6 +255,9 @@ class HeadToHeadPanel extends JPanel implements ActionListener {
 	 */
 	public HeadToHeadPanel(RecommendationControl recomControl){	
 		this.recomControl = recomControl;
+		attractions = new Attraction[2];
+		attractions[0] = new Attraction();
+		attractions[1] = new Attraction();
 		attractionNames = new String[2];
 		attractionNames[0] = new String();
 		attractionNames[1] = new String();
@@ -314,23 +315,28 @@ class HeadToHeadPanel extends JPanel implements ActionListener {
 		this.add(buttonPanel, BorderLayout.SOUTH);
 	}
 
-	public void updatePictures(String[] name){
-		leftLabel.setText(name[0]);
-		rightLabel.setText(name[1]);
+	public void updatePictures(Attraction[] name){
+		if (name[0] != null) {
+		leftLabel.setText(name[0].getName());
+		rightLabel.setText(name[1].getName());
+		}
 	}
 
 	@Override
 	public void actionPerformed(ActionEvent ae) {		
-		attractionNames = recomControl.askHeadToHead();
-		updatePictures(attractionNames);
+		attractions = recomControl.askHeadToHead();
+		updatePictures(attractions);
 
 		if(ae != null){
 			if (ae.getActionCommand() == "Left"){
+				recomControl.headToHead(attractions[0], null);
 				// save left tag(s)
 			} else if (ae.getActionCommand() == "Right"){
+				recomControl.headToHead(null, attractions[1]);
 				// save right tag(s)
 			} else if (ae.getActionCommand() == "Both"){
 				// save both tags
+				recomControl.headToHead(attractions[0], attractions[1]);
 			} else {
 				// Error!
 			}
@@ -339,6 +345,10 @@ class HeadToHeadPanel extends JPanel implements ActionListener {
 
 	public String[] getAttractionNames(){
 		return attractionNames;
+	}
+	
+	public Attraction[] getAttraction() {
+		return attractions;
 	}
 }
 

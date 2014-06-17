@@ -56,17 +56,6 @@ public class RecommendationControl {
 
 	} //end constructor
 
-	public RecommendationEntity getRecommendation() {
-
-		recommendation.compileGeneralRecommendations(HotOrNot());
-
-		HeadToHead();
-		recommendation.compileRecommendations();
-		//recommendation.compileRecommendations(tags);
-
-		return recommendation;
-	} //end getRecommendation()
-
 	private Hashtable<String, ArrayList<Attraction>> getAttractionTable()
 	{
 		return dataManagement.getList();
@@ -134,21 +123,29 @@ public class RecommendationControl {
 	
 	public void hot(String tag) {
 		recommendation.incMatchedTags(tag);
-	}
-	
-	public void not(String tag) {
 		tags.add(tag);
 	}
 
-	public String[] askHeadToHead(){
-		String[] temp = new String[2];
+	public Attraction[] askHeadToHead(){
+		Attraction[] temp = new Attraction[2];
+		String tag = tags.iterator().next();
 		if(hhCounter < NUM_HEAD_TO_HEAD){
-			temp[0] = attractionNames[hhCounter++];
-			temp[1] = attractionNames[hhCounter++];
+			hhCounter++;
+			temp[0] = recommendation.getList().get(tag).iterator().next();
+			temp[1] = recommendation.getList().get(tag).iterator().next();
 		} else {
-			temp[0] = "DONE";
-			temp[1] = "DONE";
+			temp[0] = null;
+			temp[1] = null;
 		}
 		return temp;
+	}
+	
+	public void headToHead(Attraction attr1, Attraction attr2) {
+		if (attr1 != null) {
+			recommendation.addAttraction(attr1);
+		}
+		else if (attr2 != null) {
+			recommendation.addAttraction(attr2);
+		}
 	}
 } //end class
