@@ -24,14 +24,14 @@ public class DataControl {
 		fileAttractionData.updateAttractionList(attraction);
 	}
 	
-	public int getAlgorithm()
+	public AlgorithmParameters getAlgorithm()
 	{
-		return fileAlgorithmData.getSensitivity();
+		return fileAlgorithmData.getAlgorithm();
 	}
 	
-	public void updateAlgorithm(int sensitivity)
+	public void updateAlgorithm(AlgorithmParameters newAlgorithm)
 	{
-		fileAlgorithmData.updateAlgorithm(sensitivity);
+		fileAlgorithmData.updateAlgorithm(newAlgorithm);
 	}
 	
 }

@@ -15,14 +15,14 @@ import ErrorLog.ErrorLog;
 public class FileAlgorithmData extends ErrorLog {
 
 	private FileIO file;
-	private int sensitivity;
+	private AlgorithmParameters algorithm;
 	
 	
 	public FileAlgorithmData()
 	{
 		super();
 		file = new FileIO("algorithmData.dg");
-		sensitivity = 0;
+		algorithm = new AlgorithmParameters();
 	}
 	
 	/**
@@ -42,22 +42,37 @@ public class FileAlgorithmData extends ErrorLog {
 			{
 				if (matcher.group(1).equals("sensitivity"))
 				{
-					sensitivity = Integer.valueOf(matcher.group(2));
+					algorithm.sensitivity = Integer.valueOf(matcher.group(2));
+				}else if (matcher.group(1).equals("numHeadToHead"))
+				{
+					algorithm.numHH = Integer.valueOf(matcher.group(2));
+				}else if (matcher.group(1).equals("numHotOrNot"))
+				{
+					algorithm.numHN = Integer.valueOf(matcher.group(2));
 				}
 			}
 		}
 	}
 	
-	public int getSensitivity()
+	public AlgorithmParameters getAlgorithm()
 	{
 		getFileData();
-		return sensitivity;
+		return algorithm;
 	}
 	
-	public void updateAlgorithm(int sensitivity)
+	public void printAlgorithm()
+	{
+		System.out.println("Sensitivity: " + algorithm.sensitivity);
+		System.out.println("NumHeadToHead: " + algorithm.numHH);
+		System.out.println("NumHotOrNot: " + algorithm.numHN);
+	}
+	
+	public void updateAlgorithm(AlgorithmParameters newAlgorithm)
 	{
 		ArrayList<String> update = new ArrayList<String>();
-		update.add("<sensitivity><" + String.valueOf(sensitivity) + ">");
+		update.add("<sensitivity><" + String.valueOf(newAlgorithm.sensitivity) + ">");
+		update.add("<numHeadToHead><" + String.valueOf(newAlgorithm.numHH) + ">");
+		update.add("<numHotOrNot><" + String.valueOf(newAlgorithm.numHN) + ">");
 		file.write(update);
 	}
 
