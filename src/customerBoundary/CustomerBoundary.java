@@ -80,7 +80,7 @@ class GUI extends JFrame implements KeyListener, ActionListener { // KeyListener
 		titlePanel.setPreferredSize(new Dimension(563, 275));
 		
 		JPanel mainPanel = new JPanel();
-		JButton continueButton = new JButton("Begin! :)");
+		JButton continueButton = new JButton("Get Recommendations!");
 		continueButton.addActionListener(this);
 		mainPanel.add(continueButton);
 		
@@ -194,7 +194,8 @@ class HotOrNotPanel extends JPanel implements ActionListener {
 
 		attractionPanel = new JPanel();
 		attractionPanel.setPreferredSize(new Dimension(560, 300));
-		attractionPanel.setBorder(new TitledBorder(BorderFactory.createLineBorder(Color.black), "Attraction Picture"));
+		//attractionPanel.setBorder(new TitledBorder(BorderFactory.createLineBorder(Color.black), "Attraction Picture"));
+		actionPerformed(null);
 		//attractionPanel.add(new JLabel("Picture"));
 
 		JPanel buttonPanel = new JPanel();
@@ -260,8 +261,12 @@ class HeadToHeadPanel extends JPanel implements ActionListener {
 		attractionPanel = new JPanel();
 		attractionPanel.setPreferredSize(new Dimension(560, 275));
 		attractionPanel.setBorder(new TitledBorder(BorderFactory.createLineBorder(Color.black), "Attraction Picture"));
-		leftLabel = new JLabel("Left Picture", SwingConstants.LEFT);
-		rightLabel = new JLabel("Right Picture", SwingConstants.RIGHT);
+		
+		leftLabel = new JLabel();
+		rightLabel = new JLabel();
+		actionPerformed(null);
+		//leftLabel = new JLabel("Left Picture", SwingConstants.LEFT);
+		//rightLabel = new JLabel("Right Picture", SwingConstants.RIGHT);
 		attractionPanel.add(leftLabel, BorderLayout.WEST);
 		attractionPanel.add(rightLabel, BorderLayout.EAST);
 
