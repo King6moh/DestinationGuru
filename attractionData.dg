@@ -1,51 +1,297 @@
-<name><Eiffel Tower>
+<name><Tour Eiffel>
 <country><France>
 <city><Paris>
-<street><Champ de Mars>
+<street><Avenue Anatole France>
 <addressNumber><5>
-<latitude><4851296.0>
-<longitude><217402.0>
-<tag><wonder>
+<latitude><48.858539>
+<longitude><2.294508>
+<tag><monument>
 <tag><free>
 <tag><18th century>
 <tag><iron>
-<tag><tall>
+<tag><high>
 <tag><stairs>
 <tag><restaurant>
+
+<name><L'Arc de Triomphe de L'Etoile>
+<country><France>
+<city><Paris>
+<street><Place Charles de Gaulle>
+<addressNumber><NA>
+<latitude><48.873915>
+<longitude><2.294999>
+<tag><monument>
+<tag><historic>
+<tag><war>
+
+<name><Luxor Obelisk>
+<country><France>
+<city><Paris>
+<street><Place de la Concorde>
+<addressNumber><NA>
+<latitude><48.865654>
+<longitude><2.321097>
+<tag><monument>
+<tag><egypt>
+<tag><napolean>
+<tag><gold>
+
+<name><Notre Dame Cathedral>
+<country><France>
+<city><Paris>
+<street><Parvis Notre-Dame Place>
+<addressNumber><6>
+<latitude><48.853109>
+<longitude><2.349886>
+<tag><church>
+<tag><island>
+<tag><gothic>
+<tag><architecture>
+<tag><historic>
+
+<name><Saint-Sulpice>
+<country><France>
+<city><Paris>
+<street><Rue palatome>
+<addressNumber><2>
+<latitude><48.851111>
+<longitude><2.334438>
+<tag><church>
+<tag><organ>
+<tag><architecture>
+<tag><historic>
+
+<name><Basilique du Sacre-Coeur>
+<country><France>
+<city><Paris>
+<street><Rue du Chevalier de la Barre>
+<addressNumber><35>
+<latitude><48.851111>
+<longitude><2.334438>
+<tag><church>
+<tag><modern>
+<tag><architecture>
+<tag><catholic>
+
+<name><L'Hotel des Invalides>
+<country><France>
+<city><Paris>
+<street><Rue de Grenelle>
+<addressNumber><129>
+<latitude><48.855842>
+<longitude><2.312515>
+<tag><architecture>
+<tag><dome>
+<tag><museum>
+<tag><midieval>
+<tag><napolean>
+<tag><history>
+<tag><mausoleum>
+<tag><architecture>
+
+<name><Pont Alexandre III>
+<country><France>
+<city><Paris>
+<street><Ave Winston Churchill>
+<addressNumber><NA>
+<latitude><48.863807>
+<longitude><2.313477>
+<tag><architecture>
+<tag><bridge>
+<tag><seine>
+<tag><ornate>
+<tag><engineering>
+
+<name><Pont Neuf>
+<country><France>
+<city><Paris>
+<street><Rue du Pont Neuf>
+<addressNumber><NA>
+<latitude><48.857180>
+<longitude><2.341302>
+<tag><architecture>
+<tag><bridge>
+<tag><historic>
+<tag><midieval>
+
+<name><Jardin du Luxembourg>
+<country><France>
+<city><Paris>
+<street><NA>
+<addressNumber><NA>
+<latitude><48.846399>
+<longitude><2.337117>
+<tag><park>
+<tag><garden>
+<tag><flowers>
+<tag><statues>
+<tag><fountains>
+
+<name><Jardin des Tuilleries>
+<country><France>
+<city><Paris>
+<street><Rue de Rivoli>
+<addressNumber><113>
+<latitude><48.863644>
+<longitude><2.327483>
+<tag><park>
+<tag><garden>
+<tag><flowers>
+<tag><statues>
+<tag><fountains>
 
 <name><The Louvre>
 <country><France>
 <city><Paris>
-<street><Champ de Mars>
-<addressNumber><12>
-<latitude><1111.9999>
-<longitude><9999.1111>
-<tag><wonder>
-<tag><free>
-<tag><old>
-<tag><palace>
+<street><NA>
+<addressNumber><NA>
+<latitude><48.860745>
+<longitude><2.337612>
 <tag><museum>
-<tag><history>
+<tag><free>
 <tag><art>
+<tag><palace>
+<tag><history>
+<tag><culture>
 <tag><architecture>
 
-<name><Pompidou>
-<country><null>
-<city><null>
-<street><null>
-<addressNumber><0>
-<latitude><0.0>
-<longitude><0.0>
-<tag><free>
-<tag><new>
-<tag><modern art>
+<name><Centre Georges Pompidou>
+<country><France>
+<city><Paris>
+<street><Place Georges-Pompidou>
+<addressNumber><NA>
+<latitude><48.860811>
+<longitude><2.352245>
 <tag><architecture>
+<tag><avant-garde>
+<tag><art>
+<tag><music>
+<tag><technology>
 
 <name><Musee D'Orsay>
-<country><null>
-<city><null>
-<street><null>
-<addressNumber><0>
-<latitude><0.0>
-<longitude><0.0>
+<country><France>
+<city><Paris>
+<street><Rue de la Legion d'Honneur>
+<addressNumber><1>
+<latitude><48.860159>
+<longitude><2.326561>
+<tag><museum>
+<tag><art>
+<tag><impressionist>
+<tag><post-impressionist>
+
+<name><Middle Ages National Museum>
+<country><France>
+<city><Paris>
+<street><Place Paul Painleve>
+<addressNumber><6>
+<latitude><48.850716>
+<longitude><2.344017>
+<tag><museum>
+<tag><midieval>
+
+<name><Rodin Museum>
+<country><France>
+<city><Paris>
+<street><Rue de Varenne>
+<addressNumber><79>
+<latitude><48.855466>
+<longitude><2.315854>
+<tag><museum>
+<tag><sculptures>
+<tag><modern>
+
+<name><Musee d'Histoire Contemporaine>
+<country><France>
+<city><Paris>
+<street><Rue de Grenelle>
+<addressNumber><129>
+<latitude><48.857235>
+<longitude><2.313279>
+<tag><museum>
+<tag><history>
+<tag><modern>
+<tag><contemporary>
+
+<name><Guimet museum>
+<country><France>
+<city><Paris>
+<street><Place d'Iena>
+<addressNumber><6>
+<latitude><48.865228>
+<longitude><2.293658>
+<tag><museum>
+<tag><art>
+<tag><Asian>
+
+<name><Bar du Central>
+<country><France>
+<city><Paris>
+<street><Rue Saint-Dominique>
+<addressNumber><99>
+<latitude><48.859436>
+<longitude><2.306892>
+<tag><nightlife>
+<tag><bar>
+<tag><patio>
+
+<name><The Club>
+<country><France>
+<city><Paris>
+<street><Rue Sourcouf>
+<addressNumber><22>
+<latitude><48.860450>
+<longitude><2.309380>
+<tag><nightlife>
+<tag><bar>
+<tag><cocktails>
+
+<name><Le Diplomate>
+<country><France>
+<city><Paris>
+<street><Avenue de la Bourdonnais>
+<addressNumber><49>
+<latitude><48.857673>
+<longitude><2.300550>
+<tag><nightlife>
+<tag><bar>
+
+<name><Department Stores District>
+<country><France>
+<city><Paris>
+<street><Boulevard Haussmann>
+<addressNumber><NA>
+<latitude><48.874480>
+<longitude><2.322716>
+<tag><shopping>
+<tag><department>
+<tag><jewellery>
+
+<name><Avenue des Chanps-Elysees>
+<country><France>
+<city><Paris>
+<street><Champs-Elysees>
+<addressNumber><NA>
+<latitude><48.869710>
+<longitude><2.308218>
+<tag><shopping>
+<tag><designer>
+<tag><luxury>
+
+<name><Saint-Germain-des-Pres>
+<country><France>
+<city><Paris>
+<street><Boulevard St-Germain>
+<addressNumber><NA>
+<latitude><48.853488>
+<longitude><2.335329>
+<tag><shopping>
+<tag><chic>
+<tag><books>
+<tag><home furnishings>
+<tag><boutiques>
+
+
+
+
 
