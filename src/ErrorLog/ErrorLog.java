@@ -48,20 +48,5 @@ public abstract class ErrorLog {
 		} 
 	}
 	
-	/**
-	 * Get the Logger object being used in the ErrorLog.
-	 * @return The Logger object being used in the ErrorLog.
-	 */
-	/*public Logger getErrorLog(){ // Useful if not abstract class...
-		return logger;
-	}*/
-
-	/**
-	 * Append to the log.
-	 * @param s The string to be appended to the log.
-	 */
-	/*public static void log(String s){
-		logger.info(s);
-	}*/
 }
 
