@@ -28,6 +28,7 @@ public class FileAttractionData extends ErrorLog {
 		file = new FileIO("attractionData.dg");
 		attractionList = new ArrayList<Attraction>();
 		tagTable = new Hashtable<String, ArrayList<Attraction>>();
+		getFileData();
 	}
 	
 	/**

@@ -19,26 +19,31 @@ import javax.swing.border.TitledBorder;
 import dataManagement.Attraction;
 import recommender.RecommendationControl;
 
-public class CustomerBoundary {
+import ErrorLog.ErrorLog;
+
+public class CustomerBoundary extends ErrorLog {
 
 	private GUI gui;
 	private RecommendationControl recomControl;
 
 	public CustomerBoundary(){
+		super();
 		recomControl = new RecommendationControl(this);
 		gui = new GUI(recomControl);
+		
+		logger.info("adding to error log");
 	}
-	
+
 	public boolean askHotOrNot(String tag) {
-		
+
 		return true;
-		
+
 	} //end askHotOrNot()
-	
+
 	public int askHeadToHead(Attraction attraction_1, Attraction attraction_2) {
-		
+
 		return 0;
-		
+
 	} //end askHeadToHead()
 
 	/**
@@ -58,46 +63,51 @@ class GUI extends JFrame implements KeyListener, ActionListener { // KeyListener
 	private TitlePanel titlePanel;
 	Font font = new Font("Times New Roman", Font.BOLD, 16);
 	private boolean ready;
-	
+
 	private String attractionName;
-	
+
 	private RecommendationControl recomControl;
 
 	/**
 	 * Constructor for GUI objects.
 	 */
 	public GUI(RecommendationControl recomControl) {
-		
+
 		this.recomControl = recomControl;
 		attractionName = new String("attractionName");
 		ready = false;
-		
+
 		// Initial
 		setTitle("TRAVELABULOUS");
 		setSize(562,700);
 
 		titlePanel = new TitlePanel();
 		titlePanel.setPreferredSize(new Dimension(563, 275));
-		
+
+		DestinationGuruPanel dgPanel = new DestinationGuruPanel();
+		dgPanel.setPreferredSize(new Dimension(563, 150));
+
 		JPanel mainPanel = new JPanel();
 		JButton continueButton = new JButton("Get Recommendations!");
 		continueButton.addActionListener(this);
 		mainPanel.add(continueButton);
-		
+
 		this.getContentPane().add(titlePanel, BorderLayout.NORTH);
 		this.getContentPane().add(mainPanel, BorderLayout.CENTER);
-		
+		this.getContentPane().add(dgPanel, BorderLayout.SOUTH);
+
 		setLocationRelativeTo(null);
 
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		this.setResizable(false);
 		this.setVisible(true);
-		
+
 		while(!ready){ // wait for button click
 			repaint();
 		} 
-		
+
 		this.getContentPane().remove(mainPanel);
+		this.getContentPane().remove(dgPanel);
 
 		// Hot or Not
 		setTitle("TRAVELABULOUS Hot-Or-Not");
@@ -105,34 +115,37 @@ class GUI extends JFrame implements KeyListener, ActionListener { // KeyListener
 		this.getContentPane().add(titlePanel, BorderLayout.NORTH);
 		this.getContentPane().add(hotOrNotPanel, BorderLayout.CENTER);
 		revalidate();
-		
+
 		while(!hotOrNotPanel.getAttractionName().equals("DONE")){ 
 			repaint();
 		}
-		
+
 		this.getContentPane().remove(hotOrNotPanel);
 
 		// Head to Head
 		setTitle("TRAVELABULOUS Head-To-Head");
-		
+
 		HeadToHeadPanel headToHeadPanel = new HeadToHeadPanel(recomControl);
 		this.getContentPane().add(titlePanel, BorderLayout.NORTH);
 		this.getContentPane().add(headToHeadPanel, BorderLayout.CENTER);	
 		revalidate();
-		
+
 		while(!headToHeadPanel.getAttractionNames()[0].equals("DONE")){ 
 			repaint();
 		}
-		
+
 		this.getContentPane().remove(headToHeadPanel);
-		
+
 		// Head to Head
 		setTitle("TRAVELABULOUS Recommendations");
-				
+
 		JPanel recommendationsPanel = new JPanel();
 		JLabel recommendationsLabel = new JLabel("Recommendations:");
 		recommendationsPanel.add(recommendationsLabel);
-		this.getContentPane().add(recommendationsPanel);
+
+		this.getContentPane().add(recommendationsPanel, BorderLayout.CENTER);
+		this.getContentPane().add(dgPanel, BorderLayout.SOUTH);
+
 		revalidate();
 	}
 
@@ -179,7 +192,7 @@ class HotOrNotPanel extends JPanel implements ActionListener {
 	public HotOrNotPanel(RecommendationControl recomControl, String attractionName){		
 		this.attractionName = attractionName;
 		this.recomControl = recomControl;
-		
+
 		hot = new JButton("HOT!");
 		hot.setPreferredSize(new Dimension(250, 50));
 		hot.setBackground(Color.GREEN);
@@ -205,7 +218,7 @@ class HotOrNotPanel extends JPanel implements ActionListener {
 		this.add(attractionPanel, BorderLayout.CENTER);
 		this.add(buttonPanel, BorderLayout.SOUTH);
 	}
-	
+
 	public void updatePicture(String name){
 		attractionPanel.setBorder(new TitledBorder(BorderFactory.createLineBorder(Color.black), name));
 	}
@@ -214,8 +227,13 @@ class HotOrNotPanel extends JPanel implements ActionListener {
 	public void actionPerformed(ActionEvent ae) {		
 		attractionName = recomControl.askHotOrNot();
 		updatePicture(attractionName);
+		if(ae != null){
+			if (ae.getActionCommand() == "HOT!"){
+				// save tag
+			} // otherwise ae.getActionCommand() == "not" --> discard tag
+		}
 	}
-	
+
 	public String getAttractionName(){
 		return attractionName;
 	}
@@ -239,7 +257,7 @@ class HeadToHeadPanel extends JPanel implements ActionListener {
 		attractionNames = new String[2];
 		attractionNames[0] = new String();
 		attractionNames[1] = new String();
-		
+
 		left = new JButton("Left");
 		left.setPreferredSize(new Dimension(250, 50));
 		left.setBackground(Color.WHITE);
@@ -251,7 +269,7 @@ class HeadToHeadPanel extends JPanel implements ActionListener {
 		right.setBackground(Color.WHITE);
 		right.setFont(font);
 		right.addActionListener(this);
-		
+
 		both = new JButton("BOTH!");
 		both.setPreferredSize(new Dimension(250, 50));
 		both.setBackground(Color.WHITE);
@@ -261,7 +279,7 @@ class HeadToHeadPanel extends JPanel implements ActionListener {
 		attractionPanel = new JPanel();
 		attractionPanel.setPreferredSize(new Dimension(560, 275));
 		attractionPanel.setBorder(new TitledBorder(BorderFactory.createLineBorder(Color.black), "Attraction Picture"));
-		
+
 		leftLabel = new JLabel();
 		rightLabel = new JLabel();
 		actionPerformed(null);
@@ -272,7 +290,7 @@ class HeadToHeadPanel extends JPanel implements ActionListener {
 
 		JPanel buttonPanel = new JPanel(new GridBagLayout());
 		GridBagConstraints constraints = new GridBagConstraints(); 
-		
+
 		constraints.fill = GridBagConstraints.HORIZONTAL;
 		constraints.weightx = 0.5;
 		constraints.gridx = 0;
@@ -282,7 +300,7 @@ class HeadToHeadPanel extends JPanel implements ActionListener {
 		constraints.gridx = 1;
 		constraints.gridy = 0;
 		buttonPanel.add(right, constraints);
-		
+
 		constraints.gridx = 0;
 		constraints.gridy = 1;
 		constraints.insets = new Insets(10,0,0,0);  //top padding;
@@ -292,7 +310,7 @@ class HeadToHeadPanel extends JPanel implements ActionListener {
 		this.add(attractionPanel, BorderLayout.CENTER);
 		this.add(buttonPanel, BorderLayout.SOUTH);
 	}
-	
+
 	public void updatePictures(String[] name){
 		leftLabel.setText(name[0]);
 		rightLabel.setText(name[1]);
@@ -302,8 +320,20 @@ class HeadToHeadPanel extends JPanel implements ActionListener {
 	public void actionPerformed(ActionEvent ae) {		
 		attractionNames = recomControl.askHeadToHead();
 		updatePictures(attractionNames);
+
+		if(ae != null){
+			if (ae.getActionCommand() == "Left"){
+				// save left tag(s)
+			} else if (ae.getActionCommand() == "Right"){
+				// save right tag(s)
+			} else if (ae.getActionCommand() == "Both"){
+				// save both tags
+			} else {
+				// Error!
+			}
+		}
 	}
-	
+
 	public String[] getAttractionNames(){
 		return attractionNames;
 	}
@@ -317,22 +347,27 @@ class TitlePanel extends JPanel {
 	public TitlePanel() {
 		try {                
 			image = ImageIO.read(new File("Logo.jpg"));
-			setFocusable(true);
-			requestFocus();
-
-			InputMap im = getInputMap(WHEN_IN_FOCUSED_WINDOW);
-			im.put(KeyStroke.getKeyStroke(KeyEvent.VK_LEFT, 0), "LEFT");
-
-			ActionMap am = getActionMap();
-			am.put("LEFT", new AbstractAction() {
-				@Override
-				public void actionPerformed(ActionEvent arg0) {
-				}
-			}
-					);
-
 		} catch (IOException ex) {
-			System.out.println("Couldnt read file");
+			System.out.println("Couldnt load Travelabulous logo.jpg file");
+		}
+	}
+
+	@Override
+	protected void paintComponent(Graphics g) {
+		super.paintComponent(g);
+		g.drawImage(image, 0, 0, null); // see javadoc for more info on the parameters            
+	}
+}
+
+class DestinationGuruPanel extends JPanel {
+
+	private BufferedImage image;	   
+
+	public DestinationGuruPanel() {
+		try {                
+			image = ImageIO.read(new File("DestinationGuru.jpg"));
+		} catch (IOException ex) {
+			System.out.println("Couldnt load DestinationGuru.jpg file");
 		}
 	}
 
