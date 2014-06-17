@@ -65,11 +65,12 @@ public class RecommendationEntity {
 	
 	public void desiredTagsSet(ArrayList<String> tagList){
 		desiredTags = new HashSet<String>(tagList);
-		//System.out.println(desiredTags.size());
+		desiredTags.remove("DONE");
+		
 		for (String tag: desiredTags){
-			System.out.println(tag);
+			System.out.println("tag:" + tag);
 			for (Attraction att: list.get(tag)){
-				if(att.incMatchedTags() == sensitivity){
+				if(att.incMatchedTags() >= sensitivity){
 					finalRecoms.add(att);
 				}
 			}

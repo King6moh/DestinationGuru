@@ -143,11 +143,11 @@ class GUI extends JFrame implements KeyListener, ActionListener { // KeyListener
 
 		ArrayList<Attraction> finalRecoms = recomControl.updateRecomEntity();
 		for (Attraction att: finalRecoms){
-			recommendationsPanel.add(new JLabel(att.getName()));
+			recommendationsPanel.add(new JLabel("<html><br>--" + att.getName() + "</html>"));
 		}
 
+		this.getContentPane().add(dgPanel, BorderLayout.NORTH);
 		this.getContentPane().add(recommendationsPanel, BorderLayout.CENTER);
-		this.getContentPane().add(dgPanel, BorderLayout.SOUTH);
 
 		revalidate();
 	}
