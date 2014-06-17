@@ -47,9 +47,8 @@ public class RecommendationControl {
 
 	public RecommendationControl(CustomerBoundary client) {
 
-		recommendation = new RecommendationEntity();
 		dataManagement = new DataControl();
-		attractionList = new AttractionList();
+		recommendation = new RecommendationEntity(dataManagement.getList());
 		this.client = client;
 		hnCounter = 0; 
 		hhCounter = 0;
@@ -82,20 +81,24 @@ public class RecommendationControl {
 
 			while(tagList.hasMoreElements()) {
 				tempTag = tagList.nextElement();
-				/*
+				
 				if (!client.askHotOrNot(tempTag)) {
 					tags.add(tempTag);
 				} //end if
 				else {
-					recommendation.incMatchedTags();
+					recommendation.incMatchedTags(tempTag);
 				} //end else
-				*/
+				
 			} //end while
 			
 		} //end for loop
 
 		return tags;
 	} //end HotOrNot()
+	
+	public void AnswerHotOrNot(boolean answer) {
+		
+	}
 
 	private void HeadToHead() {
 

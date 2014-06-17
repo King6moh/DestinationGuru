@@ -66,7 +66,7 @@ public class RecommendationEntity {
 		
 	} //end getAttractions()
 	
-	public void incMatchedCounter(String tag) {
+	public void incMatchedTags(String tag) {
 		while (list.get(tag).iterator().hasNext())
 		{
 			list.get(tag).iterator().next().incMatchedTags();

@@ -30,13 +30,14 @@ public class CustomerBoundary extends ErrorLog {
 		super();
 		recomControl = new RecommendationControl(this);
 		gui = new GUI(recomControl);
+		gui.gui();
 		
 		logger.info("adding to error log");
 	}
 
 	public boolean askHotOrNot(String tag) {
-
-		return true;
+		boolean answer = gui.HotOrNot(tag);
+		 return answer;
 
 	} //end askHotOrNot()
 
@@ -61,8 +62,14 @@ class GUI extends JFrame implements KeyListener, ActionListener { // KeyListener
 
 	private static final long serialVersionUID = 7237211201250882835L;
 	private TitlePanel titlePanel;
+	private HotOrNotPanel hotOrNotPanel;
+	DestinationGuruPanel dgPanel = new DestinationGuruPanel();
+	JPanel mainPanel = new JPanel();
+	
 	Font font = new Font("Times New Roman", Font.BOLD, 16);
 	private boolean ready;
+	private int state;
+	private boolean hotAnswer;
 
 	private String attractionName;
 
@@ -76,77 +83,130 @@ class GUI extends JFrame implements KeyListener, ActionListener { // KeyListener
 		this.recomControl = recomControl;
 		attractionName = new String("attractionName");
 		ready = false;
-
+		state = 0;
+		hotAnswer = false;
+		dgPanel = new DestinationGuruPanel();
+		mainPanel = new JPanel();
+		
+	}
+	
+	public void gui() {
+		
 		// Initial
-		setTitle("TRAVELABULOUS");
-		setSize(562,700);
+				setTitle("TRAVELABULOUS");
+				setSize(562,700);
 
-		titlePanel = new TitlePanel();
-		titlePanel.setPreferredSize(new Dimension(563, 275));
+				titlePanel = new TitlePanel();
+				titlePanel.setPreferredSize(new Dimension(563, 275));
 
-		DestinationGuruPanel dgPanel = new DestinationGuruPanel();
-		dgPanel.setPreferredSize(new Dimension(563, 150));
+				//dgPanel = new DestinationGuruPanel();
+				dgPanel.setPreferredSize(new Dimension(563, 150));
 
-		JPanel mainPanel = new JPanel();
-		JButton continueButton = new JButton("Get Recommendations!");
-		continueButton.addActionListener(this);
-		mainPanel.add(continueButton);
+				//mainPanel = new JPanel();
+				JButton continueButton = new JButton("Get Recommendations!");
+				continueButton.addActionListener(this);
+				mainPanel.add(continueButton);
 
-		this.getContentPane().add(titlePanel, BorderLayout.NORTH);
-		this.getContentPane().add(mainPanel, BorderLayout.CENTER);
-		this.getContentPane().add(dgPanel, BorderLayout.SOUTH);
+				this.getContentPane().add(titlePanel, BorderLayout.NORTH);
+				this.getContentPane().add(mainPanel, BorderLayout.CENTER);
+				this.getContentPane().add(dgPanel, BorderLayout.SOUTH);
 
-		setLocationRelativeTo(null);
+				setLocationRelativeTo(null);
 
-		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		this.setResizable(false);
-		this.setVisible(true);
+				this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+				this.setResizable(false);
+				this.setVisible(true);
+				
+				while(state == 0){ // wait for button click
+					this.repaint();
+				} 
+				
+				while(true);
 
-		while(!ready){ // wait for button click
-			repaint();
-		} 
+				//this.getContentPane().remove(mainPanel);
+				//this.getContentPane().remove(dgPanel);
 
-		this.getContentPane().remove(mainPanel);
-		this.getContentPane().remove(dgPanel);
+				/*
+				// Hot or Not
+				setTitle("TRAVELABULOUS Hot-Or-Not");
+				HotOrNotPanel hotOrNotPanel = new HotOrNotPanel(recomControl, attractionName);
+				this.getContentPane().add(titlePanel, BorderLayout.NORTH);
+				this.getContentPane().add(hotOrNotPanel, BorderLayout.CENTER);
+				revalidate();
+				*/
 
-		// Hot or Not
+				/*
+				while(!hotOrNotPanel.getAttractionName().equals("DONE")){ 
+					repaint();
+				}
+
+				this.getContentPane().remove(hotOrNotPanel);
+
+				// Head to Head
+				setTitle("TRAVELABULOUS Head-To-Head");
+
+				HeadToHeadPanel headToHeadPanel = new HeadToHeadPanel(recomControl);
+				this.getContentPane().add(titlePanel, BorderLayout.NORTH);
+				this.getContentPane().add(headToHeadPanel, BorderLayout.CENTER);	
+				revalidate();
+
+				while(!headToHeadPanel.getAttractionNames()[0].equals("DONE")){ 
+					repaint();
+				}
+
+				this.getContentPane().remove(headToHeadPanel);
+
+				// Head to Head
+				setTitle("TRAVELABULOUS Recommendations");
+
+				JPanel recommendationsPanel = new JPanel();
+				JLabel recommendationsLabel = new JLabel("Recommendations:");
+				recommendationsPanel.add(recommendationsLabel);
+
+				this.getContentPane().add(recommendationsPanel, BorderLayout.CENTER);
+				this.getContentPane().add(dgPanel, BorderLayout.SOUTH);
+
+				revalidate();
+				*/
+		
+	}
+	
+	public boolean HotOrNot(String tag) {
+		
+		if (state == 0) {
+			this.getContentPane().remove(mainPanel);
+			this.getContentPane().remove(dgPanel);
+			System.out.println("Remove");
+		}
+		
+		state = 1;
 		setTitle("TRAVELABULOUS Hot-Or-Not");
-		HotOrNotPanel hotOrNotPanel = new HotOrNotPanel(recomControl, attractionName);
+		hotOrNotPanel = new HotOrNotPanel(recomControl, tag, this);
 		this.getContentPane().add(titlePanel, BorderLayout.NORTH);
 		this.getContentPane().add(hotOrNotPanel, BorderLayout.CENTER);
-		revalidate();
-
-		while(!hotOrNotPanel.getAttractionName().equals("DONE")){ 
-			repaint();
+		this.revalidate();
+		
+		System.out.println("Hot Or Not");
+		
+		while(!ready) {
+			this.repaint();
+			System.out.println("repaint");
 		}
-
-		this.getContentPane().remove(hotOrNotPanel);
-
-		// Head to Head
-		setTitle("TRAVELABULOUS Head-To-Head");
-
-		HeadToHeadPanel headToHeadPanel = new HeadToHeadPanel(recomControl);
-		this.getContentPane().add(titlePanel, BorderLayout.NORTH);
-		this.getContentPane().add(headToHeadPanel, BorderLayout.CENTER);	
-		revalidate();
-
-		while(!headToHeadPanel.getAttractionNames()[0].equals("DONE")){ 
-			repaint();
-		}
-
-		this.getContentPane().remove(headToHeadPanel);
-
-		// Head to Head
-		setTitle("TRAVELABULOUS Recommendations");
-
-		JPanel recommendationsPanel = new JPanel();
-		JLabel recommendationsLabel = new JLabel("Recommendations:");
-		recommendationsPanel.add(recommendationsLabel);
-
-		this.getContentPane().add(recommendationsPanel, BorderLayout.CENTER);
-		this.getContentPane().add(dgPanel, BorderLayout.SOUTH);
-
-		revalidate();
+		
+		return hotAnswer;
+		
+	}
+	
+	public void hot() {
+		hotAnswer = true;
+	}
+	
+	public void not() {
+		hotAnswer = false;
+	}
+	
+	public void ready() {
+		ready = true;
 	}
 
 	/** Handle the key typed event from the text field. */
@@ -173,7 +233,8 @@ class GUI extends JFrame implements KeyListener, ActionListener { // KeyListener
 
 	@Override
 	public void actionPerformed(ActionEvent arg0) {
-		ready = true;
+		//ready = true;
+		recomControl.getRecommendation();
 	}
 }
 
@@ -184,14 +245,16 @@ class HotOrNotPanel extends JPanel implements ActionListener {
 	private JPanel attractionPanel;
 	private String attractionName;
 	private RecommendationControl recomControl;
+	private GUI gui;
 	Font font = new Font("Times New Roman", Font.BOLD, 16);
 
 	/**
 	 * Constructor for the HotOrNot panel.
 	 */
-	public HotOrNotPanel(RecommendationControl recomControl, String attractionName){		
+	public HotOrNotPanel(RecommendationControl recomControl, String attractionName, GUI gui){		
 		this.attractionName = attractionName;
 		this.recomControl = recomControl;
+		this.gui = gui;
 
 		hot = new JButton("HOT!");
 		hot.setPreferredSize(new Dimension(250, 50));
@@ -225,12 +288,16 @@ class HotOrNotPanel extends JPanel implements ActionListener {
 
 	@Override
 	public void actionPerformed(ActionEvent ae) {		
-		attractionName = recomControl.askHotOrNot();
 		updatePicture(attractionName);
 		if(ae != null){
 			if (ae.getActionCommand() == "HOT!"){
+				gui.hot();
 				// save tag
 			} // otherwise ae.getActionCommand() == "not" --> discard tag
+			else {
+				gui.not();
+			}
+			gui.ready();
 		}
 	}
 
