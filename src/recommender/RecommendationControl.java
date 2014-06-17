@@ -3,6 +3,7 @@ package recommender;
 
 import java.util.ArrayList;
 import java.util.Enumeration;
+import java.util.Hashtable;
 
 import com.sun.security.ntlm.Client;
 
@@ -10,10 +11,12 @@ import customerBoundary.CustomerBoundary;
 
 import dataManagement.Attraction;
 import dataManagement.AttractionList;
+import dataManagement.DataControl;
 
 public class RecommendationControl {
 
 	private RecommendationEntity recommendation;
+	private DataControl dataManagement;
 	private AttractionList attractionList;
 	private CustomerBoundary client;
 
@@ -45,6 +48,7 @@ public class RecommendationControl {
 	public RecommendationControl(CustomerBoundary client) {
 
 		recommendation = new RecommendationEntity();
+		dataManagement = new DataControl();
 		attractionList = new AttractionList();
 		this.client = client;
 		hnCounter = 0; 
@@ -63,6 +67,11 @@ public class RecommendationControl {
 		return recommendation;
 	} //end getRecommendation()
 
+	private Hashtable<String, ArrayList<Attraction>> getAttractionTable()
+	{
+		return dataManagement.getList();
+	}
+	
 	private ArrayList<String> HotOrNot() {
 
 		ArrayList<String> tags = new ArrayList<String>();
