@@ -17,7 +17,7 @@
 <country><France>
 <city><Paris>
 <street><Place Charles de Gaulle>
-<addressNumber><NA>
+<addressNumber><1>
 <latitude><48.873915>
 <longitude><2.294999>
 <tag><monument>
@@ -28,7 +28,7 @@
 <country><France>
 <city><Paris>
 <street><Place de la Concorde>
-<addressNumber><NA>
+<addressNumber><1>
 <latitude><48.865654>
 <longitude><2.321097>
 <tag><monument>
@@ -93,7 +93,7 @@
 <country><France>
 <city><Paris>
 <street><Ave Winston Churchill>
-<addressNumber><NA>
+<addressNumber><1>
 <latitude><48.863807>
 <longitude><2.313477>
 <tag><architecture>
@@ -106,7 +106,7 @@
 <country><France>
 <city><Paris>
 <street><Rue du Pont Neuf>
-<addressNumber><NA>
+<addressNumber><1>
 <latitude><48.857180>
 <longitude><2.341302>
 <tag><architecture>
@@ -118,7 +118,7 @@
 <country><France>
 <city><Paris>
 <street><NA>
-<addressNumber><NA>
+<addressNumber><1>
 <latitude><48.846399>
 <longitude><2.337117>
 <tag><park>
@@ -144,7 +144,7 @@
 <country><France>
 <city><Paris>
 <street><NA>
-<addressNumber><NA>
+<addressNumber><1>
 <latitude><48.860745>
 <longitude><2.337612>
 <tag><museum>
@@ -159,7 +159,7 @@
 <country><France>
 <city><Paris>
 <street><Place Georges-Pompidou>
-<addressNumber><NA>
+<addressNumber><1>
 <latitude><48.860811>
 <longitude><2.352245>
 <tag><architecture>
@@ -260,7 +260,7 @@
 <country><France>
 <city><Paris>
 <street><Boulevard Haussmann>
-<addressNumber><NA>
+<addressNumber><1>
 <latitude><48.874480>
 <longitude><2.322716>
 <tag><shopping>
@@ -271,7 +271,7 @@
 <country><France>
 <city><Paris>
 <street><Champs-Elysees>
-<addressNumber><NA>
+<addressNumber><1>
 <latitude><48.869710>
 <longitude><2.308218>
 <tag><shopping>
@@ -282,7 +282,7 @@
 <country><France>
 <city><Paris>
 <street><Boulevard St-Germain>
-<addressNumber><NA>
+<addressNumber><1>
 <latitude><48.853488>
 <longitude><2.335329>
 <tag><shopping>
